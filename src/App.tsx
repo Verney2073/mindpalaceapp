@@ -1,32 +1,30 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { Navbar } from './Navbar'
+import { CardAnimationArea } from './CardAnimationArea'
+import { GameLiveScorePanel } from './GameLiveScorePanel'
+import { PlayerActionPanel } from './PlayerActionPanel'
 
 function App() {
-  const [count, setCount] = useState(0)
+  //instead of string, use enum;
+  //https://www.typescriptlang.org/docs/handbook/enums.html
+
+  //use react.context for managing user accounts ?
+
+  const [gameState, setGameState] = useState("gameNotOn");
+
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="main-container">
+      <h1> Card Deck Memoriser </h1>
+      <Navbar />
+      <CardAnimationArea gameState={gameState}
+        setGameState={setGameState} />
+      <div className='game-settings-and-player-action-container'>
+        <GameLiveScorePanel gameState={gameState} />
+        <PlayerActionPanel />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
