@@ -25,12 +25,7 @@ export function CardAnimationArea(props: {
             // console.log(activeDeck)
 
         }
-        // I think there are synchronicity issues here. 
-        // Seems that gameState is still set to gameNotOn when it reaches this function,
-        //it hasn't yet been updated by the if statement above. Then this func keeps it at gameNotON
-        //use .then() somehow here? 
-        //.then(props.setGameState(gameStateCheck(props.gameState,activeDeck,seenCardsPile)));
-        //ask chatgpt
+       
         console.log(props.gameState);
     }
     return (

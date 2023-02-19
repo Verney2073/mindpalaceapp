@@ -7,12 +7,19 @@ import { GameLiveScorePanel } from './GameLiveScorePanel'
 import { PlayerActionPanel } from './PlayerActionPanel'
 
 function App() {
-  //instead of string, use enum;
   //https://www.typescriptlang.org/docs/handbook/enums.html
 
   //use react.context for managing user accounts ?
 
-  const [gameState, setGameState] = useState("gameNotOn");
+  enum gameStates { 
+    gameNotOn = "gameNotOn",
+    seeCardsPhase = "seeCardsPhase",
+    recallPhase = "recallPhase"
+  }
+
+  const [gameState, setGameState] = useState(gameStates.gameNotOn);
+  const [seeCardsTimer, setSeeCardsTimer] = useState(5);
+
 
 
   return (
@@ -22,8 +29,12 @@ function App() {
       <CardAnimationArea gameState={gameState}
         setGameState={setGameState} />
       <div className='game-settings-and-player-action-container'>
-        <GameLiveScorePanel gameState={gameState} />
-        <PlayerActionPanel />
+        <GameLiveScorePanel gameState={gameState}
+          setGameState={setGameState}
+          seeCardsTimer={seeCardsTimer}
+          setSeeCardsTimer={setSeeCardsTimer}
+        />
+        <PlayerActionPanel gameState={gameState} seeCardsTimer={seeCardsTimer} setSeeCardsTimer={setSeeCardsTimer} />
       </div>
     </div>
   )
