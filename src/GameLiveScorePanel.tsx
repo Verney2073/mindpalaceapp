@@ -6,26 +6,35 @@ export function GameLiveScorePanel(props: {
     gameState: string,
     setGameState: React.Dispatch<React.SetStateAction<string>>,
     seeCardsTimer: number,
-    setSeeCardsTimer: React.Dispatch<React.SetStateAction<number>>
-}) {
-    //props from the user action panel should determine the default value of useState
-    const [currentCount, setcurrentCount] = useState(props.seeCardsTimer)
+    setSeeCardsTimer: React.Dispatch<React.SetStateAction<number>>,
+    currentCount: number,
+    setCurrentCount: React.Dispatch<React.SetStateAction<number>>,
+    cardsToRecall: number,
+    setCardsToRecall: React.Dispatch<React.SetStateAction<number>>,
+    seenCardsPile: string[],
+}): JSX.Element {
+
     useEffect(() => {
 
-        if (props.gameState === "seeCardsPhase" && currentCount >= 0) {
+        if (props.gameState === "seeCardsPhase" && props.currentCount >= 0) {
             const intervalId = setInterval(
                 () => {
-                    currentCount === 0 ? setcurrentCount(props.seeCardsTimer) : setcurrentCount(currentCount - 1);
+                    props.currentCount === 0 ? props.setCurrentCount(props.seeCardsTimer) : props.setCurrentCount(props.currentCount - 1);
+                    //run PhaseCheck function here to move us on to the recallPhase 
+                    console.log("props.cardsToRecall is returning " + props.cardsToRecall + " in GameLiveScorePanel")
+                    if (props.cardsToRecall === props.seenCardsPile.length) props.setGameState("recallPhase")
+
                 }, 1000);
+
             return () => clearInterval(intervalId);
         }
 
-    }, [props.gameState, currentCount]);
+    }, [props.gameState, props.currentCount, props.cardsToRecall]);
 
     return (
         <div className="game-live-score-panel-container">
             <div className="see-cards-countdown-container">
-                <span id="see-cards-countdown"> {currentCount} </span>
+                <span id={props.seeCardsTimer === -1 ? "see-card-countdown-hidden" : "see-cards-countdown"} > {props.currentCount} </span>
             </div>
             <button onClick={() => props.setSeeCardsTimer(5)}></button>
             <br></br>

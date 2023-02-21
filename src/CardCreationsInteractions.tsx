@@ -23,7 +23,8 @@ export function shuffleDeck(deck: string[]) {
     return deck;
 }
 
-export function flipCard(deck: string[], seenCards: string[]) {
+export function flipCard(deck: string[], seenCards: string[],cardsToRecall: number = 5) {
+    if (seenCards.length===cardsToRecall) return console.log("All cards seen!");
     console.log("The card is: " + deck[0])
     //func() add card to seenCardsPile
     seenCards.push(deck[0])

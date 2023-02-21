@@ -1,8 +1,9 @@
 * {
-  border: 2px solid yellow;
-  margin: 0 auto;
+  border: 1px solid yellow;
+  margin: 5px auto;
   background-color: #02090e;
   color: white;
+  box-sizing: border-box
 }
 
 #root {
@@ -42,6 +43,21 @@ ul {
 
 }
 
+.card-start-game-button-container {
+  position: absolute;
+  left: 65%;
+  top: 10%;
+  width: 25%;
+  height: 25%;
+}
+
+.card-start-game-button {
+  width: 30%;
+  height: 70%;
+  background-color: green;
+  border-radius: 25%;
+}
+
 .game-live-score-panel-container {
   width: 39%
 }
@@ -73,10 +89,15 @@ ul {
 
 }
 
+.game-settings-lives-icon:hover {
+  background-color: pink;
+}
+
 .game-settings-option-buttons {
   display: flex;
   flex-direction: space-evenly;
   margin: 0 2px;
+
 
 }
 
@@ -84,6 +105,7 @@ ul {
   margin: 0px 3px;
 
 }
+
 .game-settings-option-button:hover {
   background-color: lightgrey;
   border-radius: 50%;
@@ -99,8 +121,9 @@ ul {
   flex-direction: column; 
 } */
 
-
-
+.game-settings-panel-hidden {
+  display: none;
+}
 
 .main-container {
   height: 100%;
@@ -115,12 +138,22 @@ ul {
 
 }
 
+#number-to-recall {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .player-action-panel-container {
   width: 59%;
 }
 
 #see-cards-countdown {
   font-size: 2.4rem;
+  display: block;
+}
+
+#see-card-countdown-hidden {
+  display: none;
 }
 
 .logo {
@@ -130,34 +163,42 @@ ul {
   transition: filter 300ms;
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
-.card {
-  padding: 2em;
+.recall-phase-cards-table {
+
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
 }
 
-.read-the-docs {
-  color: #888;
+.recall-phase-icon-square {
+  position: relative;
+  width: 10%;
+  height: 100%;
+}
+
+.recall-phase-cards-icon {
+  position: absolute;
+  top: 0%;
+  left: 22.5%;
+}
+
+th,
+td {
+  border: 1px transparent;
+}
+
+th:hover {
+  background-color: lightgrey;
+  border-radius: 50%;
+}
+
+
+.recall-phase-panel-hidden {
+  display: none;
 }
