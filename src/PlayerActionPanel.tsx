@@ -1,15 +1,17 @@
 import './App.css'
 import { AiOutlineHeart } from 'react-icons/ai';
 import { GiSpades, GiDiamonds, GiHearts, GiClubs } from 'react-icons/gi'
+import { useEffect } from 'react';
 
 export function PlayerActionPanel(props: {
-    gameState: string;
-    seeCardsTimer: number;
-    setSeeCardsTimer: React.Dispatch<React.SetStateAction<number>>
-    cardsToRecall: number;
-    setCardsToRecall: React.Dispatch<React.SetStateAction<number>>
+    gameState: string,
+    setGameState: React.Dispatch<React.SetStateAction<string>>,
+    seeCardsTimer: number,
+    setSeeCardsTimer: React.Dispatch<React.SetStateAction<number>>,
+    cardsToRecall: number,
+    setCardsToRecall: React.Dispatch<React.SetStateAction<number>>,
     userRecallCard: string,
-    setUserRecallCard: React.Dispatch<React.SetStateAction<string>>
+    setUserRecallCard: React.Dispatch<React.SetStateAction<string>>,
     seenCardsPile: string[]
 }) {
 
@@ -21,9 +23,9 @@ export function PlayerActionPanel(props: {
         console.log("I was clicked")
     }
 
-    function handleUserRecallGuess(userRecallCard:string) {
-        if(props.gameState === "recallPhase") {
-            if(userRecallCard === props.seenCardsPile[0]) {
+    function handleUserRecallGuess(userRecallCard: string) {
+        if (props.gameState === "recallPhase") {
+            if (userRecallCard === props.seenCardsPile[0]) {
                 //we shouldn't really just pop out the seenCards - because we'll need them to save games later
                 alert("Correct!")
                 props.seenCardsPile.shift()
@@ -34,14 +36,17 @@ export function PlayerActionPanel(props: {
                 alert("Select the card you want to guess from the grid below the playing area")
             } else {
                 //alerts will be changed to on-screen text
-                alert ("Oops! Wrong guess")
+                alert("Oops! Wrong guess")
                 //subtract a life
                 //check if the user has no lives remaining - if so, end the game
-                
-            }
 
             }
+
         }
+    }
+    useEffect(() => {
+        if (props.seenCardsPile.length === 1 && props.gameState === "recallPhase") props.setGameState("endOfGamePhase");
+    }, [props.seenCardsPile])
 
 
     return (
@@ -67,7 +72,8 @@ export function PlayerActionPanel(props: {
                     <label className="game-settings-title">Cards to recall:</label>
                     <input type="number" id="number-to-recall"
                         name="number-to-recall" min="1" max="52"
-                        value="5"
+                        //how do I fix this?
+                        value={props.cardsToRecall}
                         onChange={e => props.setCardsToRecall(parseInt(e.target.value))}
                     ></input> </li><br></br>
                 <li className='game-settings-item'>
@@ -89,7 +95,15 @@ export function PlayerActionPanel(props: {
             <div className=
                 {props.gameState === "recallPhase" ? "recall-phase-panel" : "recall-phase-panel-hidden"}>
                 <div className="recall-phase-top-menu">
-                    <button className="recall-phase-submit-card" onClick={()=> handleUserRecallGuess(props.userRecallCard)}></button>
+                    <button className="recall-phase-submit-button"
+                        onClick={function () {
+                            handleUserRecallGuess(props.userRecallCard);
+                            console.log(props.seenCardsPile.length);
+                            props.seenCardsPile.length === 0 ? props.setGameState("endOfGamePhase") : "";
+                        }
+                        }>
+                        Submit guess
+                    </button>
                     {/* <button className="recall-phase-skip-card"></button> */}
                 </div>
                 <div className="recall-phase-cards-section">
@@ -98,74 +112,72 @@ export function PlayerActionPanel(props: {
                         <tbody>
                             <tr>
                                 <th className="recall-phase-icon-square"><GiDiamonds className="recall-phase-cards-icon" /></th>
-                                <th onClick={()=> props.setUserRecallCard("AD")}>A</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                <th>7</th>
-                                <th>8</th>
-                                <th>9</th>
-                                <th>10</th>
-                                <th>J</th>
-                                <th>Q</th>
-                                <th>K</th>
-
-                                <th></th>
+                                <th onClick={() => props.setUserRecallCard("AD")}>A</th>
+                                <th onClick={() => props.setUserRecallCard("2D")}>2</th>
+                                <th onClick={() => props.setUserRecallCard("3D")}>3</th>
+                                <th onClick={() => props.setUserRecallCard("4D")}>4</th>
+                                <th onClick={() => props.setUserRecallCard("5D")}>5</th>
+                                <th onClick={() => props.setUserRecallCard("6D")}>6</th>
+                                <th onClick={() => props.setUserRecallCard("7D")}>7</th>
+                                <th onClick={() => props.setUserRecallCard("8D")}>8</th>
+                                <th onClick={() => props.setUserRecallCard("9D")}>9</th>
+                                <th onClick={() => props.setUserRecallCard("10D")}>10</th>
+                                <th onClick={() => props.setUserRecallCard("JD")}>J</th>
+                                <th onClick={() => props.setUserRecallCard("QD")}>Q</th>
+                                <th onClick={() => props.setUserRecallCard("KD")}>K</th>
                             </tr>
                             <tr>
                                 <th className="recall-phase-icon-square"><GiClubs
-                                 className="recall-phase-cards-icon" /></th>
-                                <th>A</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                <th>7</th>
-                                <th>8</th>
-                                <th>9</th>
-                                <th>10</th>
-                                <th>J</th>
-                                <th>Q</th>
-                                <th>K</th>
+                                    className="recall-phase-cards-icon" /></th>
+                                <th onClick={() => props.setUserRecallCard("AC")}>A</th>
+                                <th onClick={() => props.setUserRecallCard("2C")}>2</th>
+                                <th onClick={() => props.setUserRecallCard("3C")}>3</th>
+                                <th onClick={() => props.setUserRecallCard("4C")}>4</th>
+                                <th onClick={() => props.setUserRecallCard("5C")}>5</th>
+                                <th onClick={() => props.setUserRecallCard("6C")}>6</th>
+                                <th onClick={() => props.setUserRecallCard("7C")}>7</th>
+                                <th onClick={() => props.setUserRecallCard("8C")}>8</th>
+                                <th onClick={() => props.setUserRecallCard("9C")}>9</th>
+                                <th onClick={() => props.setUserRecallCard("10C")}>10</th>
+                                <th onClick={() => props.setUserRecallCard("JC")}>J</th>
+                                <th onClick={() => props.setUserRecallCard("QC")}>Q</th>
+                                <th onClick={() => props.setUserRecallCard("KC")}>K</th>
 
                             </tr>
                             <tr>
-                                <th className="recall-phase-icon-square"><GiHearts 
-                                className="recall-phase-cards-icon" /></th>
-                                <th>A</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                <th>7</th>
-                                <th>8</th>
-                                <th>9</th>
-                                <th>10</th>
-                                <th>J</th>
-                                <th>Q</th>
-                                <th>K</th>
+                                <th className="recall-phase-icon-square"><GiHearts
+                                    className="recall-phase-cards-icon" /></th>
+                                <th onClick={() => props.setUserRecallCard("AH")}>A</th>
+                                <th onClick={() => props.setUserRecallCard("2H")}>2</th>
+                                <th onClick={() => props.setUserRecallCard("3H")}>3</th>
+                                <th onClick={() => props.setUserRecallCard("4H")}>4</th>
+                                <th onClick={() => props.setUserRecallCard("5H")}>5</th>
+                                <th onClick={() => props.setUserRecallCard("6H")}>6</th>
+                                <th onClick={() => props.setUserRecallCard("7H")}>7</th>
+                                <th onClick={() => props.setUserRecallCard("8H")}>8</th>
+                                <th onClick={() => props.setUserRecallCard("9H")}>9</th>
+                                <th onClick={() => props.setUserRecallCard("10H")}>10</th>
+                                <th onClick={() => props.setUserRecallCard("JH")}>J</th>
+                                <th onClick={() => props.setUserRecallCard("QH")}>Q</th>
+                                <th onClick={() => props.setUserRecallCard("KH")}>K</th>
 
                             </tr>
                             <tr>
-                                <th className="recall-phase-icon-square"><GiClubs 
-                                className="recall-phase-cards-icon" /></th>
-                                <th>A</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                <th>7</th>
-                                <th>8</th>
-                                <th>9</th>
-                                <th>10</th>
-                                <th>J</th>
-                                <th>Q</th>
-                                <th>K</th>
+                                <th className="recall-phase-icon-square"><GiSpades
+                                    className="recall-phase-cards-icon" /></th>
+                                <th onClick={() => props.setUserRecallCard("AS")}>A</th>
+                                <th onClick={() => props.setUserRecallCard("2S")}>2</th>
+                                <th onClick={() => props.setUserRecallCard("3S")}>3</th>
+                                <th onClick={() => props.setUserRecallCard("4S")}>4</th>
+                                <th onClick={() => props.setUserRecallCard("5S")}>5</th>
+                                <th onClick={() => props.setUserRecallCard("6S")}>6</th>
+                                <th onClick={() => props.setUserRecallCard("7S")}>7</th>
+                                <th onClick={() => props.setUserRecallCard("8S")}>8</th>
+                                <th onClick={() => props.setUserRecallCard("9S")}>9</th>
+                                <th onClick={() => props.setUserRecallCard("10S")}>10</th>
+                                <th onClick={() => props.setUserRecallCard("JS")}>J</th>
+                                <th onClick={() => props.setUserRecallCard("QS")}>Q</th>
+                                <th onClick={() => props.setUserRecallCard("KS")}>K</th>
                             </tr>
                         </tbody>
                     </table>

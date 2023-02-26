@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import { flipCard } from './CardCreationsInteractions';
+//why can't I use gameStates now as the type of GameState
+import gameStates from './App'
 
 export function GameLiveScorePanel(props: {
     gameState: string,
@@ -16,25 +18,29 @@ export function GameLiveScorePanel(props: {
 
     useEffect(() => {
 
-        if (props.gameState === "seeCardsPhase" && props.currentCount >= 0) {
+        if (props.gameState === "seeCardsPhase" && props.currentCount >= 0 && props.seeCardsTimer >= 0) {
             const intervalId = setInterval(
                 () => {
                     props.currentCount === 0 ? props.setCurrentCount(props.seeCardsTimer) : props.setCurrentCount(props.currentCount - 1);
                     //run PhaseCheck function here to move us on to the recallPhase 
                     console.log("props.cardsToRecall is returning " + props.cardsToRecall + " in GameLiveScorePanel")
-                    if (props.cardsToRecall === props.seenCardsPile.length) props.setGameState("recallPhase")
+                    console.log("props.seeCardsTimer is equal to " + props.seeCardsTimer)
+                    if (props.cardsToRecall === props.seenCardsPile.length) {
+                        props.setGameState("recallPhase")
+                    }
 
                 }, 1000);
 
             return () => clearInterval(intervalId);
         }
 
-    }, [props.gameState, props.currentCount, props.cardsToRecall]);
+    }, [props.gameState, props.currentCount, props.cardsToRecall, props.seeCardsTimer]);
 
     return (
         <div className="game-live-score-panel-container">
             <div className="see-cards-countdown-container">
-                <span id={props.seeCardsTimer === -1 ? "see-card-countdown-hidden" : "see-cards-countdown"} > {props.currentCount} </span>
+                <span id={props.seeCardsTimer === -1 ? "see-card-countdown-hidden" : "see-cards-countdown"}
+                > {props.currentCount} </span>
             </div>
             <button onClick={() => props.setSeeCardsTimer(5)}></button>
             <br></br>

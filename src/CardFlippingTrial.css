@@ -1,0 +1,59 @@
+.card {
+  width: 200px;
+  height: 300px;
+  position: relative;
+  perspective: 800px;
+  cursor: pointer;
+}
+
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+  transform-origin: left;
+  font-size: 2.15rem;
+}
+
+.card-bottom-right {
+  position: absolute; 
+  bottom: 1%;
+  right: 5%;
+  margin: 10px;
+  color: red;
+}
+
+.card-center {
+  position: absolute;
+  top:38.5%;
+  left: 37%;
+  color: red;
+}
+
+.card-top-left {
+  position: absolute;
+  margin: 10px;
+  top: 1%;
+  left: 5%;
+  color: red;
+}
+
+.card-front {
+  background-color: #fff;
+}
+
+.card-back {
+  background-color: darkblue;
+  transform: rotateY(180deg) translateX(-100%);
+}
+
+.card.flipped .card-front {
+  transform: rotateY(180deg) translateX(-100%);
+}
+
+.card.flipped .card-back {
+  transform: rotateY(0) translateX(0);
+}
+

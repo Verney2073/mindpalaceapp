@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import './App.css'
 import { createDeck, flipCard, gameStateCheck, shuffleDeck } from './CardCreationsInteractions'
@@ -12,11 +12,30 @@ export function CardAnimationArea(props: {
     setCardsToRecall: React.Dispatch<React.SetStateAction<number>>
     seenCardsPile: string[];
     setSeenCardsPile: React.Dispatch<React.SetStateAction<string[]>>
+    currentCount: number,
+    setCurrentCount: React.Dispatch<React.SetStateAction<number>>,
 }) {
     //When I remove string1, string 2 'ourShuffledDeck' below complains. But not with seenCardsPile. Why?
     let [activeDeck, setActiveDeck] = useState(['string1', 'string2']);
+    let [cardsFlipped, setCardsFlipped] = useState(false)
+    let [ourCurrentCardSuit, setourCurrentCardSuit] = useState("");
+    let [ourCurrentCardRank, setourCurrentCardRank] = useState("");
 
     //load this in as a component only after the game starts?
+
+    async function displayCardFace(ourCard) {
+        document.getElementById('card-face-up').className = "playing-card-front";
+        // document.getElementById("card-face-up").innerHTML = ourCard.suitIcon + ourCard.cardRank; //add cardRank as well
+        setCardsFlipped(true);
+        setourCurrentCardRank(ourCard.cardRank);
+        setourCurrentCardSuit(ourCard.suitIcon);
+        document.getElementById("card-center-temp").style.color = ourCard.iconColor;
+        document.getElementById("card-top-left-temp").style.color = ourCard.iconColor;
+        document.getElementById("card-bottom-right-temp").style.color = ourCard.iconColor;
+        document.getElementById("card-center-temp").style.display = "block";
+        document.getElementById("card-top-left-temp").style.display = "block";
+        document.getElementById("card-bottom-right-temp").style.display = "block";
+    }
 
     async function handleMainDeckClick() {
         if (props.gameState === "gameNotOn") {
@@ -24,21 +43,50 @@ export function CardAnimationArea(props: {
             console.log("the game has started!");
             let ourShuffledDeck = shuffleDeck(createDeck());
             setActiveDeck(ourShuffledDeck);
+            //prompt the user to click again 
+
         }
         if (props.gameState === "seeCardsPhase") {
-            flipCard(activeDeck, props.seenCardsPile, props.cardsToRecall);
-            // console.log(activeDeck)
+            let ourCard = flipCard(activeDeck, props.seenCardsPile, props.cardsToRecall);
+            // show the visuals of the card
+            displayCardFace(ourCard);
+            if (props.cardsToRecall === props.seenCardsPile.length) {
+                props.setGameState("recallPhase")
+            }
         }
-        console.log(props.cardsToRecall);
-
-        console.log(props.gameState);
     }
+
+    useEffect(() => {
+        if (props.currentCount === 0) {
+            let ourCard = flipCard(activeDeck, props.seenCardsPile, props.cardsToRecall);
+            displayCardFace(ourCard); //add cardRank as well
+            if (props.cardsToRecall === props.seenCardsPile.length) {
+                props.setGameState("recallPhase")
+            }
+        }
+    }, [props.currentCount]);
+
     return (
         <div className="card-animation-container">
-            <div className="card-face-up-container"></div>
-            <div className="card-face-down-deck-container" onClick={() => handleMainDeckClick()}></div>
+            <div className="card-face-up-container">
+                <div className='playing-card-back' id='card-face-up' >
+                    <div id="card-center-temp"
+                    // Ids should not apply to more than one element as below;
+                    // id={cardsFlipped ? "card-face-up-toggle-temp" : ""}
+                    >{ourCurrentCardRank}
+                    </div>
+                    <div id="card-top-left-temp">{ourCurrentCardSuit}
+                    </div>
+                    <div id="card-bottom-right-temp">{ourCurrentCardSuit}
+                    </div>
+                </div>            </div>
+            <div className="card-face-down-deck-container" >
+                <div className="playing-card-back" ></div>
+            </div>
             <div className="card-start-game-button-container">
-                <div className="card-start-game-button"></div>
+                <div className="card-start-game-button"
+                    onClick={() => handleMainDeckClick()}>
+                </div>
                 <p className="card-start-game-message">Start game and memorise 5 cards</p>
             </div>
         </div>

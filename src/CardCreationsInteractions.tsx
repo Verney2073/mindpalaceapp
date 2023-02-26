@@ -1,6 +1,29 @@
 import React from 'react'
 import './App.tsx'
 
+const icons = [
+    {
+        suit: "D",
+        icon: "♦",
+        color: "red"
+    },
+    {
+        suit: "H",
+        icon: "♡",
+        color: "red"
+    },
+    {
+        suit: "C",
+        icon: "♣",
+        color: "black"
+    },
+    {
+        suit: "S",
+        icon: "♠",
+        color: "black"
+    },
+]
+
 export function createDeck() {
     const suits = ["H", "D", "S", "C"];
     const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"]
@@ -23,15 +46,22 @@ export function shuffleDeck(deck: string[]) {
     return deck;
 }
 
-export function flipCard(deck: string[], seenCards: string[],cardsToRecall: number = 5) {
-    if (seenCards.length===cardsToRecall) return console.log("All cards seen!");
+export function flipCard(deck: string[], seenCards: string[], cardsToRecall: number = 5) {
+    if (seenCards.length === cardsToRecall) return console.log("All cards seen!");
     console.log("The card is: " + deck[0])
+    //func() to create an actual card - or do all of this at the create deck stage
+    let cardSuit = icons.find(obj => obj.suit === deck[0][deck[0].length - 1]);
+    let suitIcon = cardSuit?.icon;
+    let iconColor = cardSuit?.color;
+    let cardRanks = deck[0].split("");
+    let cardRank = cardRanks.splice(0, cardRanks.length - 1).join(""); //e.g. deck =['10H'] captures '10' here
+
     //func() add card to seenCardsPile
     seenCards.push(deck[0])
     deck.shift();
     console.log("You have seen the following cards: " + seenCards);
     //phaseCheck(deck: string[],seenCards: string[])
-
+    return { suitIcon, cardRank, iconColor } 
 
 }
 
