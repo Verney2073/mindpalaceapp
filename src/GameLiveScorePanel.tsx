@@ -42,9 +42,8 @@ export function GameLiveScorePanel(props: {
                 <span id={props.seeCardsTimer === -1 ? "see-card-countdown-hidden" : "see-cards-countdown"}
                 > {props.currentCount} </span>
             </div>
-            <button onClick={() => props.setSeeCardsTimer(5)}></button>
             <br></br>
-            <button onClick={() => props.setGameState("gameNotOn")}></button>
+            <button onClick={() => props.setGameState("gameNotOn")}>Emergency Reset</button>
         </div>
     )
 }

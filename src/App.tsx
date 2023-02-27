@@ -6,7 +6,8 @@ import { CardAnimationArea } from './CardAnimationArea'
 import { GameLiveScorePanel } from './GameLiveScorePanel'
 import { PlayerActionPanel } from './PlayerActionPanel'
 import { EndOfGameScoresPanel } from './EndOfGameScoresPanel'
-import { CardFlippingTrial } from './CardFlippingTrial'
+import { CardFlippingTrial } from './CardFlippingTrial/CardFlippingTrial'
+import { AboutPage } from './AboutPage/AboutPage'
 
 function App() {
   //https://www.typescriptlang.org/docs/handbook/enums.html
@@ -24,9 +25,7 @@ function App() {
   const [seeCardsTimer, setSeeCardsTimer] = useState(-1);
   const [cardsToRecall, setCardsToRecall] = useState(5);
   const [currentCount, setcurrentCount] = useState(5)
-
   const [seenCardsPile, setSeenCardsPile] = useState([]);
-
   const [userRecallCard, setUserRecallCard] = useState("");
 
   return (
@@ -37,7 +36,7 @@ function App() {
         <CardFlippingTrial />
       } />
       <Route path="/about" element={
-        <div>Page in Progress!</div>
+        <AboutPage />
       } />
       <Route path="/settings" element={
         <div>Page in Progress!</div>

@@ -71,15 +71,14 @@ export function CardAnimationArea(props: {
             <div className="card-face-up-container">
                 <div className='playing-card-back' id='card-face-up' >
                     <div id="card-center-temp"
-                    // Ids should not apply to more than one element as below;
-                    // id={cardsFlipped ? "card-face-up-toggle-temp" : ""}
-                    >{ourCurrentCardRank}
-                    </div>
+                    >{ourCurrentCardRank}</div>
                     <div id="card-top-left-temp">{ourCurrentCardSuit}
                     </div>
                     <div id="card-bottom-right-temp">{ourCurrentCardSuit}
                     </div>
-                </div>            </div>
+                </div>
+            </div>
+            {/* Temporarily hiding face-down-deck-container as I am using only a single deck to display cards rn */}
             <div className="card-face-down-deck-container" >
                 <div className="playing-card-back" ></div>
             </div>

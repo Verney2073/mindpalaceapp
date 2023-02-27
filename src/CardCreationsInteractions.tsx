@@ -9,7 +9,7 @@ const icons = [
     },
     {
         suit: "H",
-        icon: "♡",
+        icon: "♥",
         color: "red"
     },
     {

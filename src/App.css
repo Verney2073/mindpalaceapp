@@ -2,7 +2,7 @@
   /* border: 1px solid yellow; */
   margin: 5px auto;
   color: white;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 #root {
@@ -48,15 +48,15 @@ ul {
 
 .card-animation-container {
   width: 100%;
-  height: 30%;
+  height: 40%;
   position: relative;
 }
 
 #card-center-temp {
   display: none;
   position: absolute;
-  top: 32.5%;
-  left: 41%;
+  top: 33.5%;
+  left: 42%;
   margin: 0 auto;
   color: red;
 
@@ -88,13 +88,14 @@ ul {
   top: 7%;
   left: 10%;
   position: absolute;
+  display: none;
 }
 
 .card-face-up-container {
   width: 26%;
   height: 78%;
   top: 7%;
-  left: 35%;
+  left: 22.5%;
   position: absolute;
 
 }
@@ -105,15 +106,15 @@ ul {
   /* backface-visibility: hidden; */
   /* transition: transform 0.6s ease;
   transform-origin: left; */
-  font-size: 1.65rem;
+  font-size: 2rem;
 }
 
 .card-start-game-button-container {
   position: absolute;
   left: 65%;
   top: 10%;
-  width: 25%;
-  height: 25%;
+  width: 23%;
+  height: 20%;
 }
 
 .card-start-game-button {
@@ -206,6 +207,7 @@ ul {
 #number-to-recall {
   display: flex;
   justify-content: flex-end;
+  margin: 0 9px;
 }
 
 .player-action-panel-container {
@@ -222,9 +224,10 @@ ul {
   /* rounded corners */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   /* drop shadow */
-  height: 145px;
+  height: 180px;
   /* adjust height to fit your design */
-  width: 101.5px;
+  width: 126px;
+  /* Formerly height 145px width 101.5px; */
   /*width should be 70% of height */
   /* transform: rotateY(180deg); */
   /* flip the card */
@@ -236,9 +239,9 @@ ul {
   /* rounded corners */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   /* drop shadow */
-  height: 145px;
+  height: 180px;
   /* adjust height to fit your design */
-  width: 101.5px;
+  width: 126px;
   /*width should be 70% of height */
 }
 
@@ -255,13 +258,6 @@ ul {
 #see-card-countdown-hidden {
   opacity: 20%;
   font-size: 2.4rem;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
 }
 
 @media (prefers-reduced-motion: no-preference) {
