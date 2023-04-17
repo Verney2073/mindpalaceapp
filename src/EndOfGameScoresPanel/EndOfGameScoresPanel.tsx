@@ -1,7 +1,9 @@
+import { gameStates } from '../ApiClient/ApiClient'
+import './EndOfGameScoresPanel.css'
 
 export function EndOfGameScoresPanel(props: {
     cardsToRecall: number
-    gameState: string
+    gameState: gameStates
 }) {
     return (
         <div>

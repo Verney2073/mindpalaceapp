@@ -1,0 +1,25 @@
+#number-to-recall {
+    color: black;
+}
+
+.game-settings-option-button {
+    cursor: pointer;
+}
+
+.game-settings-lives {
+    cursor: pointer
+}
+
+.recall-phase-cards-option {
+    cursor: pointer;
+}
+
+.recall-phase-cards-option.selected {
+    background-color: lightgrey;
+    border-radius: 50%;
+}
+
+
+.player-action-panel-container {
+    margin-top: 40px;
+}

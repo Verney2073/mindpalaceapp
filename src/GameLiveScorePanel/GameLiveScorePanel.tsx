@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
-import './App.css'
-import { flipCard } from './CardCreationsInteractions';
+import '../App.css'
+import './GameLiveScorePanel.css'
+import { flipCard } from '../CardCreationInteractions/CardCreationsInteractions';
 //why can't I use gameStates now as the type of GameState
-import gameStates from './App'
+import gameStates from '../App'
+
+//Make the clarity of the buttons better - what they do and how they respond to stuff 
 
 export function GameLiveScorePanel(props: {
     gameState: string,
@@ -15,6 +18,7 @@ export function GameLiveScorePanel(props: {
     setCardsToRecall: React.Dispatch<React.SetStateAction<number>>,
     seenCardsPile: string[],
 }): JSX.Element {
+
 
     useEffect(() => {
 
@@ -43,7 +47,7 @@ export function GameLiveScorePanel(props: {
                 > {props.currentCount} </span>
             </div>
             <br></br>
-            <button onClick={() => props.setGameState("gameNotOn")}>Emergency Reset</button>
+            <button id="reset-button" onClick={() => props.setGameState("gameNotOn")}>Emergency Reset</button>
         </div>
     )
 }

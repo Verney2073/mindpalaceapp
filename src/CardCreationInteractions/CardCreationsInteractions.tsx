@@ -1,5 +1,8 @@
 import React from 'react'
-import './App.tsx'
+import '../App.js'
+
+//find a Card Deck Library to use instead
+//https://www.npmjs.com/package/react-free-playing-cards
 
 const icons = [
     {
@@ -37,7 +40,6 @@ export function createDeck() {
 }
 export function shuffleDeck(deck: string[]) {
     for (let i = 0; i < deck.length; i++) {
-        //creates a random index, then assigns that card to that random position in the deck
         let tempCard = deck[i];
         const randomIndex = Math.floor(Math.random() * 52);
         deck[i] = deck[randomIndex];
@@ -49,7 +51,6 @@ export function shuffleDeck(deck: string[]) {
 export function flipCard(deck: string[], seenCards: string[], cardsToRecall: number = 5) {
     if (seenCards.length === cardsToRecall) return console.log("All cards seen!");
     console.log("The card is: " + deck[0])
-    //func() to create an actual card - or do all of this at the create deck stage
     let cardSuit = icons.find(obj => obj.suit === deck[0][deck[0].length - 1]);
     let suitIcon = cardSuit?.icon;
     let iconColor = cardSuit?.color;
@@ -60,8 +61,9 @@ export function flipCard(deck: string[], seenCards: string[], cardsToRecall: num
     seenCards.push(deck[0])
     deck.shift();
     console.log("You have seen the following cards: " + seenCards);
+    console.log("seen careds pile is equal to:" + seenCards)
     //phaseCheck(deck: string[],seenCards: string[])
-    return { suitIcon, cardRank, iconColor } 
+    return { suitIcon, cardRank, iconColor }
 
 }
 

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import './App.css'
-import { createDeck, flipCard, gameStateCheck, shuffleDeck } from './CardCreationsInteractions'
+import '../App.css'
+import './CardAnimationArea.css'
+import { createDeck, flipCard, gameStateCheck, shuffleDeck } from '../CardCreationInteractions/CardCreationsInteractions'
 import { GiCardDraw } from 'react-icons/gi';
+import { gameStates } from '../ApiClient/ApiClient';
 
 
 export function CardAnimationArea(props: {
@@ -14,6 +16,7 @@ export function CardAnimationArea(props: {
     setSeenCardsPile: React.Dispatch<React.SetStateAction<string[]>>
     currentCount: number,
     setCurrentCount: React.Dispatch<React.SetStateAction<number>>,
+
 }) {
     //When I remove string1, string 2 'ourShuffledDeck' below complains. But not with seenCardsPile. Why?
     let [activeDeck, setActiveDeck] = useState(['string1', 'string2']);
@@ -43,15 +46,16 @@ export function CardAnimationArea(props: {
             console.log("the game has started!");
             let ourShuffledDeck = shuffleDeck(createDeck());
             setActiveDeck(ourShuffledDeck);
-            //prompt the user to click again 
+            //prompt the user to click again if they are in the 'onclick' mode 
 
         }
         if (props.gameState === "seeCardsPhase") {
             let ourCard = flipCard(activeDeck, props.seenCardsPile, props.cardsToRecall);
+
             // show the visuals of the card
             displayCardFace(ourCard);
             if (props.cardsToRecall === props.seenCardsPile.length) {
-                props.setGameState("recallPhase")
+                props.setGameState(gameStates.recallPhase)
             }
         }
     }

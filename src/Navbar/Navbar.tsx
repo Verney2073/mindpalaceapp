@@ -1,9 +1,8 @@
-import './App.css'
+import './Navbar.css'
 import { Link } from 'react-router-dom'
 
 
 export function Navbar() {
-    //implement routes
     return (
         <div className="navbar-container">
             <ul className="navbar">
