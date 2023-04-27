@@ -3,13 +3,13 @@ import '../App.css'
 import './GameLiveScorePanel.css'
 import { flipCard } from '../CardCreationInteractions/CardCreationsInteractions';
 //why can't I use gameStates now as the type of GameState
-import gameStates from '../App'
+import { gameStates } from '../ApiClient/ApiClient';
 
 //Make the clarity of the buttons better - what they do and how they respond to stuff 
 
 export function GameLiveScorePanel(props: {
     gameState: string,
-    setGameState: React.Dispatch<React.SetStateAction<string>>,
+    setGameState: React.Dispatch<React.SetStateAction<gameStates>>,
     seeCardsTimer: number,
     setSeeCardsTimer: React.Dispatch<React.SetStateAction<number>>,
     currentCount: number,
@@ -22,17 +22,13 @@ export function GameLiveScorePanel(props: {
 
     useEffect(() => {
 
-        if (props.gameState === "seeCardsPhase" && props.currentCount >= 0 && props.seeCardsTimer >= 0) {
+        if (props.gameState === gameStates.seeCardsPhase && props.currentCount >= 0 && props.seeCardsTimer >= 0) {
             const intervalId = setInterval(
                 () => {
                     props.currentCount === 0 ? props.setCurrentCount(props.seeCardsTimer) : props.setCurrentCount(props.currentCount - 1);
                     //run PhaseCheck function here to move us on to the recallPhase 
                     console.log("props.cardsToRecall is returning " + props.cardsToRecall + " in GameLiveScorePanel")
                     console.log("props.seeCardsTimer is equal to " + props.seeCardsTimer)
-                    if (props.cardsToRecall === props.seenCardsPile.length) {
-                        props.setGameState("recallPhase")
-                    }
-
                 }, 1000);
 
             return () => clearInterval(intervalId);
@@ -47,7 +43,7 @@ export function GameLiveScorePanel(props: {
                 > {props.currentCount} </span>
             </div>
             <br></br>
-            <button id="reset-button" onClick={() => props.setGameState("gameNotOn")}>Emergency Reset</button>
+            <button id="reset-button" onClick={() => props.setGameState(gameStates.gameNotOn)}>Emergency Reset</button>
         </div>
     )
 }

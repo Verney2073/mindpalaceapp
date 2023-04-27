@@ -4,11 +4,18 @@
 
 .game-settings-option-button {
     cursor: pointer;
+    padding: 3px;
 }
 
 .game-settings-lives {
-    cursor: pointer
-}
+    cursor: pointer;
+    display: flex;
+    flex-direction: space-evenly;
+    margin: 0 6px;
+} 
+  /* .game-settings-lives-icon:hover {
+    background-color: pink;
+  } */
 
 .recall-phase-cards-option {
     cursor: pointer;

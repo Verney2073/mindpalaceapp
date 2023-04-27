@@ -25,6 +25,8 @@ function App() {
   const [currentCount, setcurrentCount] = useState(5)
   const [seenCardsPile, setSeenCardsPile] = useState([]);
   const [userRecallCard, setUserRecallCard] = useState("");
+  const [playerLives, setPlayerLives] = useState(4);
+  const [playerScore, setPlayerScore] = useState(0);
 
   useEffect(() => {
     //this seems to always believe gameState is set to gameNotOn and therefore always runs
@@ -67,7 +69,9 @@ function App() {
               cardsToRecall={cardsToRecall} setCardsToRecall={setCardsToRecall}
               seenCardsPile={seenCardsPile} setSeenCardsPile={setSeenCardsPile}
               currentCount={currentCount}
-              setCurrentCount={setcurrentCount} />
+              setCurrentCount={setcurrentCount}
+              playerLives={playerLives}
+              setPlayerLives={setPlayerLives} />
             <div className='game-settings-and-player-action-container'>
               <GameLiveScorePanel gameState={gameState}
                 setGameState={setGameState}
@@ -77,6 +81,7 @@ function App() {
                 setCurrentCount={setcurrentCount}
                 seenCardsPile={seenCardsPile}
                 cardsToRecall={cardsToRecall}
+                setCardsToRecall={setCardsToRecall}
 
               />
               <PlayerActionPanel gameState={gameState}
@@ -87,9 +92,15 @@ function App() {
                 seenCardsPile={seenCardsPile}
                 setGameState={setGameState}
                 setcurrentCount={setcurrentCount}
+                playerLives={playerLives}
+                setPlayerLives={setPlayerLives}
+                playerScore={playerScore}
+                setPlayerScore={setPlayerScore}
               />
             </div>
             <EndOfGameScoresPanel
+              playerScore={playerScore}
+              playerLives={playerLives}
               cardsToRecall={cardsToRecall}
               gameState={gameState} />
           </div>}
