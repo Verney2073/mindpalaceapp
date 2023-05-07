@@ -1,7 +1,7 @@
 import { AiOutlineHeart } from "react-icons/ai";
-import { IconContext } from "react-icons";
 import { gameStates } from "../ApiClient/ApiClient";
 import "./PlayerLivesDisplay.css"
+import { HeartIcon } from "./HeartIcon";
 
 
 
@@ -31,28 +31,26 @@ export function PlayerLivesDisplay(props: {
         }
     }
 
-    const style = { color: "pink" }
 
     if (props.gameState == gameStates.recallPhase)
         return (
-            <IconContext.Provider value={{ color: "pink", className: "active" }}>
-                <div className="game-settings-lives-container">
 
-                    <div className="game-settings-lives life-one">
+            <div className="game-settings-lives-container">
+                {/* <div className="game-settings-lives life-one">
                         <AiOutlineHeart
                             className={`game-settings-lives-icon ${props.playerLives > 0 ? "active" : ""}`} /></div>
-                    <div className="game-settings-lives life-two">
-                        <AiOutlineHeart
-                            className={`game-settings-lives-icon ${props.playerLives > 1 ? "active" : ""}`}
-                        /></div>
-                    <div className="game-settings-lives life-three">
-                        <AiOutlineHeart className={`game-settings-lives-icon ${props.playerLives > 2 ? "active" : ""}`} /></div>
-                    <div className="game-settings-lives life-four">
-                        <AiOutlineHeart className={`game-settings-lives-icon ${props.playerLives > 3 ? "active" : ""}`} /></div>
-
-                </div>
-            </IconContext.Provider>
-
+                <div className="game-settings-lives life-two">
+                    <AiOutlineHeart
+                        className={`game-settings-lives-icon ${props.playerLives > 1 ? "active" : ""}`}
+                    /></div>
+                <div className="game-settings-lives life-three">
+                    <AiOutlineHeart className={`game-settings-lives-icon ${props.playerLives > 2 ? "active" : ""}`} /></div>
+                <div className="game-settings-lives life-four">
+                    <AiOutlineHeart className={`game-settings-lives-icon ${props.playerLives > 3 ? "active" : ""}`} /></div> */}
+                <HeartIcon activeHeart= {props.playerLives > 0 ? true : false} />
+                <HeartIcon activeHeart= {props.playerLives > 1 ? true : false} />
+                <HeartIcon activeHeart= {props.playerLives > 2 ? true : false} />
+                <HeartIcon activeHeart= {props.playerLives > 3 ? true : false} />
+            </div >
         )
-
 }

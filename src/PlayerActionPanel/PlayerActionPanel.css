@@ -21,12 +21,22 @@
     cursor: pointer;
 }
 
-.recall-phase-cards-option.selected {
+.selected {
     background-color: lightgrey;
     border-radius: 50%;
+    color: #02090e;
 }
 
 
 .player-action-panel-container {
     margin-top: 40px;
 }
+
+/* .active {
+    color: pink;
+    background-color: pink;
+} */
+
+/* .game-settings-lives-icon {
+    color: pink;
+} */

@@ -1,9 +1,12 @@
 import '../App.css'
 import './PlayerActionPanel.css'
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { TbHeart } from 'react-icons/Tb'
 import { GiSpades, GiDiamonds, GiHearts, GiClubs } from 'react-icons/gi'
 import { useEffect, useState } from 'react';
 import { gameStates } from '../ApiClient/ApiClient';
+import { IconContext } from 'react-icons';
+import { HeartIcon } from '../PlayerLivesDisplay/HeartIcon';
 
 export function PlayerActionPanel(props: {
     gameState: gameStates,
@@ -22,6 +25,7 @@ export function PlayerActionPanel(props: {
     setPlayerScore: React.Dispatch<React.SetStateAction<number>>
 }) {
     const [selectedOption, setSelectedOption] = useState("");
+    const [selectedSeeNextCard, setSelectedSeeNextCard] = useState("On Click");
 
 
     function updateTimer(newTime: number) {
@@ -78,16 +82,21 @@ export function PlayerActionPanel(props: {
                 <li className='game-settings-item'>
                     <span className="game-settings-title">See Next Card: </span>
                     <span className='game-settings-option-buttons'>
-                        <span className="game-settings-option-button"
-                            onClick={() => props.setSeeCardsTimer(-1)}>On Click</span>
-                        <span onClick={() => updateTimer(3)}
-                            className="game-settings-option-button"> 3s</span>
-                        <span onClick={() => updateTimer(5)}
-                            className="game-settings-option-button"> 5s</span>
-                        <span onClick={() => updateTimer(10)}
-                            className="game-settings-option-button"> 10s</span>
-                        <span onClick={() => updateTimer(30)}
-                            className="game-settings-option-button"> 30s</span>
+                        <span className={`game-settings-option-button ${selectedSeeNextCard === "On Click" ? "selected" : ""
+                            }`}
+                            onClick={function () { props.setSeeCardsTimer(-1), setSelectedSeeNextCard("On Click") }}>On Click</span>
+                        <span onClick={function () { updateTimer(3), setSelectedSeeNextCard("3s") }}
+                            className={`game-settings-option-button ${selectedSeeNextCard === "3s" ? "selected" : ""
+                                }`}> 3s</span>
+                        <span onClick={function () { updateTimer(5), setSelectedSeeNextCard("5s") }}
+                            className={`game-settings-option-button ${selectedSeeNextCard === "5s" ? "selected" : ""
+                                }`}> 5s</span>
+                        <span onClick={function () { updateTimer(10), setSelectedSeeNextCard("10s") }}
+                            className={`game-settings-option-button ${selectedSeeNextCard === "10s" ? "selected" : ""
+                                }`}> 10s</span>
+                        <span onClick={function () { updateTimer(30), setSelectedSeeNextCard("30s") }}
+                            className={`game-settings-option-button ${selectedSeeNextCard === "30s" ? "selected" : ""
+                                }`}> 30s</span>
                     </span>
                 </li><br></br>
                 <li className='game-settings-item'>
@@ -102,16 +111,14 @@ export function PlayerActionPanel(props: {
                     <label className="game-settings-title">Lives: </label>
                     <div className="game-settings-lives-container">
                         <div className="game-settings-lives life-one" onClick={() => handleLifeClick(1, props.gameState)}>
-                            <AiOutlineHeart
-                                className="game-settings-lives-icon" /></div>
+                            <HeartIcon activeHeart={props.playerLives > 0 ? true : false} /></div>
                         <div className="game-settings-lives life-two" onClick={() => handleLifeClick(2, props.gameState)}>
-                            <AiOutlineHeart className="game-settings-lives-icon" /></div>
+                            <HeartIcon activeHeart={props.playerLives > 1 ? true : false} /></div>
                         <div className="game-settings-lives life-three" onClick={() => handleLifeClick(3, props.gameState)}>
-                            <AiOutlineHeart className="game-settings-lives-icon" /></div>
+                            <HeartIcon activeHeart={props.playerLives > 2 ? true : false} /></div>
                         <div className="game-settings-lives life-four" onClick={() => handleLifeClick(4, props.gameState)}>
-                            <AiOutlineHeart className="game-settings-lives-icon" /></div>
+                            <HeartIcon activeHeart={props.playerLives > 3 ? true : false} /></div>
                     </div>
-                    {/* <input type="number" id="wrong-guesses" className="game-settings-item"></input> */}
                 </li> <br></br>
             </ul>
             <div className=
@@ -128,7 +135,7 @@ export function PlayerActionPanel(props: {
                         }>
                         Submit guess
                     </button>
-                     <button className="recall-phase-skip-card" onClick={()=> handleSkipCard()}></button> 
+                    <button className="recall-phase-skip-card" onClick={() => handleSkipCard()}></button>
                 </div>
                 <div className="recall-phase-cards-section">
                     <table className='recall-phase-cards-table'>
