@@ -63,7 +63,8 @@ export function PlayerActionPanel(props: {
                 alert("Select the card you want to guess from the grid below the playing area")
             } else if (props.playerLives == 1) {
                 alert("You're out of lives!")
-                props.setGameState(gameStates.endOfGamePhase)
+                props.setPlayerLives(0);
+                props.setGameState(gameStates.endOfGamePhase);
             } else {
                 alert("Oops! Wrong guess")
                 props.setPlayerLives(props.playerLives - 1)
@@ -124,25 +125,25 @@ export function PlayerActionPanel(props: {
             <div className=
                 {props.gameState === "recallPhase" ? "recall-phase-panel" : "recall-phase-panel-hidden"}>
                 <div className="recall-phase-top-menu">
-                    <button className="recall-phase-submit-button"
+                    <button className="recall-phase-menu-button"
                         onClick={function () {
                             console.log("seencards pile is equal to: " + props.seenCardsPile)
                             handleUserRecallGuess(props.userRecallCard);
-                            console.log(props.seenCardsPile.length);
+                            console.log("length of seenCardsPile is equal to:" + props.seenCardsPile.length);
                             //did I move this out of the handleUserRecallGuess func due to async issues?
                             // props.seenCardsPile.length === 0 ? props.setGameState(gameStates.endOfGamePhase) : "";
                         }
                         }>
                         Submit guess
                     </button>
-                    <button className="recall-phase-skip-card" onClick={() => handleSkipCard()}></button>
+                    <button className="recall-phase-menu-button" onClick={() => handleSkipCard()}>Skip Card</button>
                 </div>
                 <div className="recall-phase-cards-section">
                     <table className='recall-phase-cards-table'>
                         <thead></thead>
                         <tbody>
                             <tr>
-                                <th className="recall-phase-icon-square"><GiDiamonds className="recall-phase-cards-icon recall-phase-cards-option" /></th>
+                                <th className="recall-phase-icon-square"><GiDiamonds className="recall-phase-cards-icon" /></th>
                                 <th className={`recall-phase-cards-option ${selectedOption === "AD" ? "selected" : ""
                                     }`} onClick={function () { props.setUserRecallCard("AD"), setSelectedOption("AD") }}>A</th>
                                 <th className={`recall-phase-cards-option ${selectedOption === "2D" ? "selected" : ""

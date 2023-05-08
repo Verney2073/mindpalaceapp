@@ -18,6 +18,7 @@ export function CardAnimationArea(props: {
     setCurrentCount: React.Dispatch<React.SetStateAction<number>>,
     playerLives: number,
     setPlayerLives: React.Dispatch<React.SetStateAction<number>>
+    seeCardsTimer: number
 
 }) {
     //When I remove string1, string 2 'ourShuffledDeck' below complains. But not with seenCardsPile. Why?
@@ -47,14 +48,14 @@ export function CardAnimationArea(props: {
     }
 
     async function handleMainDeckClick() {
-        if (props.gameState === "gameNotOn") {
+        if (props.gameState === gameStates.gameNotOn) {
             props.setGameState(gameStates.seeCardsPhase)
             console.log("the game has started!");
             let ourShuffledDeck = shuffleDeck(createDeck());
             setActiveDeck(ourShuffledDeck);
             //prompt the user to click again if they are in the 'onclick' mode 
         }
-        if (props.gameState === "seeCardsPhase") {
+        if (props.gameState === gameStates.seeCardsPhase && props.seeCardsTimer == -1) {
             if (props.cardsToRecall === props.seenCardsPile.length) props.setGameState(gameStates.recallPhase);
 
             let ourCard = flipCard(activeDeck, props.seenCardsPile, props.cardsToRecall);

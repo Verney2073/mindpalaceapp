@@ -12,10 +12,6 @@ import { Settings } from './SettingsPage/Settings'
 import { gameStates } from './ApiClient/ApiClient'
 
 function App() {
-  //https://www.typescriptlang.org/docs/handbook/enums.html
-
-  //use react.context for managing user accounts ?
-
   //create object or interface for some related states, then use ...*state* to control them 
   //Fore example in the Mars Mission sidebar
 
@@ -23,7 +19,7 @@ function App() {
   const [seeCardsTimer, setSeeCardsTimer] = useState(-1);
   const [cardsToRecall, setCardsToRecall] = useState(5);
   const [currentCount, setcurrentCount] = useState(5)
-  const [seenCardsPile, setSeenCardsPile] = useState([]);
+  const [seenCardsPile, setSeenCardsPile] = useState<string[]>([]);
   const [userRecallCard, setUserRecallCard] = useState("");
   const [playerLives, setPlayerLives] = useState(4);
   const [playerScore, setPlayerScore] = useState(0);
@@ -32,28 +28,27 @@ function App() {
     //this seems to always believe gameState is set to gameNotOn and therefore always runs
     //e.g. it runs at the beginning of the recall phase, setting the SeenCardsPile back to [] 
     function handlegameStateChange(currentGameState: gameStates) {
-      if (currentGameState = gameStates.gameNotOn) {
+      if (currentGameState === gameStates.gameNotOn) {
         setSeeCardsTimer(seeCardsTimer);
-        setcurrentCount(seeCardsTimer == -1 ? 3 : seeCardsTimer);
+        setcurrentCount(seeCardsTimer === -1 ? 3 : seeCardsTimer);
         setCardsToRecall(cardsToRecall);
-        // setSeenCardsPile([]); 
         setUserRecallCard("");
         document.getElementById('card-face-up').className = "playing-card-back";
         document.getElementById("card-center-temp").style.display = "none";
         document.getElementById("card-top-left-temp").style.display = "none";
         document.getElementById("card-bottom-right-temp").style.display = "none"
+        setSeenCardsPile([]); 
       }
     }
     handlegameStateChange(gameState);
+    console.log("gamestate is " + gameState)
+    console.log("seenCardsPile is " + seenCardsPile)
   }, [gameState])
 
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/trial" element={
-          <CardFlippingTrial />
-        } />
         <Route path="/about" element={
           <AboutPage />
         } />
@@ -63,7 +58,6 @@ function App() {
         <Route path="*" element={
           <div className="main-container">
             <h1> Card Deck Memoriser </h1>
-
             <CardAnimationArea gameState={gameState}
               setGameState={setGameState}
               cardsToRecall={cardsToRecall} setCardsToRecall={setCardsToRecall}
@@ -71,7 +65,8 @@ function App() {
               currentCount={currentCount}
               setCurrentCount={setcurrentCount}
               playerLives={playerLives}
-              setPlayerLives={setPlayerLives} />
+              setPlayerLives={setPlayerLives} 
+              seeCardsTimer={seeCardsTimer}/>
             <div className='game-settings-and-player-action-container'>
               <GameLiveScorePanel gameState={gameState}
                 setGameState={setGameState}
@@ -82,7 +77,6 @@ function App() {
                 seenCardsPile={seenCardsPile}
                 cardsToRecall={cardsToRecall}
                 setCardsToRecall={setCardsToRecall}
-
               />
               <PlayerActionPanel gameState={gameState}
                 seeCardsTimer={seeCardsTimer} setSeeCardsTimer={setSeeCardsTimer}

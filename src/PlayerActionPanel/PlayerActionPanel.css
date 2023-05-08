@@ -40,3 +40,41 @@
 /* .game-settings-lives-icon {
     color: pink;
 } */
+
+.recall-phase-cards-table {
+
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .recall-phase-icon-square {
+    position: relative;
+    width: 10%;
+    height: 100%;
+  }
+  
+  .recall-phase-cards-icon {
+    position: absolute;
+    top: 0%;
+    left: 22.5%;
+  }
+  
+  .recall-phase-menu-button {
+    color: black;
+  }
+  
+  th,
+  td {
+    border: 1px transparent;
+  }
+  
+  .recall-phase-cards-option:hover {
+    background-color: lightgrey;
+    border-radius: 50%;
+  }
+
+  .recall-phase-top-menu {
+    display:flex;
+    justify-content: space-evenly;
+  }

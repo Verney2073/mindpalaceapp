@@ -56,7 +56,6 @@ export function flipCard(deck: string[], seenCards: string[], cardsToRecall: num
     let iconColor = cardSuit?.color;
     let cardRanks = deck[0].split("");
     let cardRank = cardRanks.splice(0, cardRanks.length - 1).join(""); //e.g. deck =['10H'] captures '10' here
-
     //func() add card to seenCardsPile
     seenCards.push(deck[0])
     deck.shift();
