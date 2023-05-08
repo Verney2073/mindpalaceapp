@@ -11,7 +11,8 @@ export function CardAnimationPrompts(props: {
     playerLives: number,
     setPlayerLives: React.Dispatch<React.SetStateAction<number>>
     skippedCards: number,
-    playerScore:number,
+    playerScore: number,
+    seeCardsTimer: number
 }) {
     if (props.gameState == gameStates.gameNotOn) {
         return (
@@ -25,8 +26,9 @@ export function CardAnimationPrompts(props: {
         return (
             <div id="card-animation-prompts">
                 <p className="seen-cards">Cards: {props.seenCardsPile.length}/{props.cardsToRecall}</p>
-                {props.seenCardsPile.length == props.cardsToRecall && (<p>Last one!</p>
-                )}
+                {props.seenCardsPile.length == props.cardsToRecall && (<p>Last card...</p>)}
+                {props.seenCardsPile.length == 0 && props.seeCardsTimer !== -1 && (<p>Get ready...</p>)}
+                {props.seenCardsPile.length == 0 && props.seeCardsTimer === -1 && (<p>Focus your mind, then click again to begin... </p>)}
             </div>
         )
     }
@@ -45,11 +47,11 @@ export function CardAnimationPrompts(props: {
     if (props.gameState == gameStates.endOfGamePhase) {
         return (
             <EndOfGameScoresPanel
-            playerScore={props.playerScore}
-            playerLives={props.playerLives}
-            setPlayerLives={props.setPlayerLives}
-            cardsToRecall={props.cardsToRecall}
-            gameState={props.gameState} /> 
+                playerScore={props.playerScore}
+                playerLives={props.playerLives}
+                setPlayerLives={props.setPlayerLives}
+                cardsToRecall={props.cardsToRecall}
+                gameState={props.gameState} />
         )
     }
 }

@@ -1,3 +1,7 @@
+.clickable {
+    cursor: pointer;
+}
+
 .heart {
     display: inline-block;
     position: relative;
@@ -52,3 +56,4 @@
     background: hsl(0, 0%, 70%);
     transition: .25s ease-in-out;
 }
+

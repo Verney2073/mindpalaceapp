@@ -56,22 +56,10 @@ export function flipCard(deck: string[], seenCards: string[], cardsToRecall: num
     let iconColor = cardSuit?.color;
     let cardRanks = deck[0].split("");
     let cardRank = cardRanks.splice(0, cardRanks.length - 1).join(""); //e.g. deck =['10H'] captures '10' here
-    //func() add card to seenCardsPile
     seenCards.push(deck[0])
     deck.shift();
     console.log("You have seen the following cards: " + seenCards);
     console.log("seen careds pile is equal to:" + seenCards)
-    //phaseCheck(deck: string[],seenCards: string[])
-    return { suitIcon, cardRank, iconColor }
-
-}
-
-export function gameStateCheck(currentGameState: string, deck: string[], seenCards: string[]) {
-    //if gameNotOn, the phase can only move to seeCards. Happens when the user chooses to start a game
-    //if seeCardsPhase, the phase should move on to reCallPhase if the active Deck is empty (i.e. all cards seen)
-    if (deck.length === 0) return "recallPhase";
-    //if seeCardsPhase, the phase can also move to gameNotOn if the user exits the game 
-    //the user can also start a new game, i.e. exits and re-enters the seeCardsPhase, generating a new deck
-
-    return currentGameState
+    const ourCard = { suitIcon, cardRank, iconColor }
+    return ourCard;
 }

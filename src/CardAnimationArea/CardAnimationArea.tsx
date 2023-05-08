@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import '../App.css'
 import './CardAnimationArea.css'
-import { createDeck, flipCard, gameStateCheck, shuffleDeck } from '../CardCreationInteractions/CardCreationsInteractions'
+import { createDeck, flipCard,  shuffleDeck } from '../CardCreationInteractions/CardCreationsInteractions'
 import { GiCardDraw } from 'react-icons/gi';
 import { gameStates } from '../ApiClient/ApiClient';
 import { CardAnimationPrompts } from '../CardAnimationPrompts/CardAnimationPrompts';
@@ -20,7 +20,7 @@ export function CardAnimationArea(props: {
     setPlayerLives: React.Dispatch<React.SetStateAction<number>>
     seeCardsTimer: number,
     skippedCards: number,
-    playerScore:number,
+    playerScore: number,
 
 }) {
     //When I remove string1, string 2 'ourShuffledDeck' below complains. But not with seenCardsPile. Why?
@@ -37,14 +37,22 @@ export function CardAnimationArea(props: {
         setCardsFlipped(true);
         setourCurrentCardRank(ourCard.cardRank);
         setourCurrentCardSuit(ourCard.suitIcon);
-        var cardCentre = document.getElementById("card-center-temp");
+        var cardCentre = document.getElementById("card-center-temp") 
         var cardTopLeft = document.getElementById("card-top-left-temp");
         var cardBottomRight = document.getElementById("card-bottom-right-temp");
         cardCentre.style.color = ourCard.iconColor;
         cardTopLeft.style.color = ourCard.iconColor;
         cardBottomRight.style.color = ourCard.iconColor;
         cardCentre.style.display = "block";
-        if (ourCard.cardRank == "10") cardCentre.style.left = "37.5%"
+        if (ourCard.cardRank === "10") {
+            cardCentre.style.left = "37.5%";
+        }
+        else if (ourCard.cardRank === "J" || 3) {
+            cardCentre.style.left = "44%";
+        }
+        else {
+            cardCentre.style.left = "42%";
+        }
         cardTopLeft.style.display = "block";
         cardBottomRight.style.display = "block";
     }
@@ -79,7 +87,10 @@ export function CardAnimationArea(props: {
 
     return (
         <div className="card-animation-container">
-            <div className={`card-face-up-container ${props.gameState == gameStates.gameNotOn ? "playing-card-clickable" : ""}`}>
+            <div className=
+                {`card-face-up-container ${(props.gameState == gameStates.gameNotOn || (props.gameState == gameStates.seeCardsPhase && props.seeCardsTimer === -1))
+                    ? "playing-card-clickable"
+                    : ""}`}>
                 <div className="playing-card-back"
                     id='card-face-up'
                     onClick={() => handleMainDeckClick()} >
@@ -105,7 +116,8 @@ export function CardAnimationArea(props: {
                     playerLives={props.playerLives}
                     setPlayerLives={props.setPlayerLives}
                     skippedCards={props.skippedCards}
-                    playerScore ={props.playerScore}
+                    playerScore={props.playerScore}
+                    seeCardsTimer={props.seeCardsTimer}
                 />
             </div>
         </div>

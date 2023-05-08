@@ -2,3 +2,10 @@
     color: pink;
     border-radius: 50%;
 } */
+
+.game-settings-lives-container {
+    display: flex;
+    flex-direction: space-evenly;
+    margin: 0 4px;
+    width: 100%;
+  }

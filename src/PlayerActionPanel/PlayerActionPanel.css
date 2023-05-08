@@ -18,11 +18,9 @@
   width: 100%;
 }
 
-.game-settings-lives-container {
-  display: flex;
-  flex-direction: space-evenly;
-  margin: 0 4px;
-
+.game-settings-lives-outer-container {
+  width: 55%;
+  margin: 0 0;
 }
 
 .game-settings-option-buttons {
