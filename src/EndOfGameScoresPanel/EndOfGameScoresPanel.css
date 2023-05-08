@@ -2,3 +2,7 @@
 .recall-phase-panel-hidden {
     display: none;
   }
+
+  .eog-text-item {
+    margin: 15px auto;
+  }

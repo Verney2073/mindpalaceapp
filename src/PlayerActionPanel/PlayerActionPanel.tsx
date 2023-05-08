@@ -22,7 +22,9 @@ export function PlayerActionPanel(props: {
     playerLives: number,
     setPlayerLives: React.Dispatch<React.SetStateAction<number>>,
     playerScore: number,
-    setPlayerScore: React.Dispatch<React.SetStateAction<number>>
+    setPlayerScore: React.Dispatch<React.SetStateAction<number>>,
+    skippedCards: number,
+    setSkippedCards: React.Dispatch<React.SetStateAction<number>>
 }) {
     const [selectedOption, setSelectedOption] = useState("");
     const [selectedSeeNextCard, setSelectedSeeNextCard] = useState("On Click");
@@ -46,6 +48,7 @@ export function PlayerActionPanel(props: {
     function handleSkipCard() {
         props.seenCardsPile.shift();
         console.log("You have skipped this card");
+        props.setSkippedCards(props.skippedCards + 1)
         props.seenCardsPile.length === 0 ? props.setGameState(gameStates.endOfGamePhase) : "";
     }
 
@@ -79,7 +82,7 @@ export function PlayerActionPanel(props: {
     return (
         <div className="player-action-panel-container">
             <ul className=
-                {props.gameState === "recallPhase" ? "game-settings-panel-hidden" : "game-settings-panel"}>
+                {props.gameState === gameStates.recallPhase ? "game-settings-panel-hidden" : "game-settings-panel"}>
                 <li className='game-settings-item'>
                     <span className="game-settings-title">See Next Card: </span>
                     <span className='game-settings-option-buttons'>
@@ -123,7 +126,7 @@ export function PlayerActionPanel(props: {
                 </li> <br></br>
             </ul>
             <div className=
-                {props.gameState === "recallPhase" ? "recall-phase-panel" : "recall-phase-panel-hidden"}>
+                {props.gameState === gameStates.recallPhase ? "recall-phase-panel" : "recall-phase-panel-hidden"}>
                 <div className="recall-phase-top-menu">
                     <button className="recall-phase-menu-button"
                         onClick={function () {
@@ -132,15 +135,12 @@ export function PlayerActionPanel(props: {
                             console.log("length of seenCardsPile is equal to:" + props.seenCardsPile.length);
                             //did I move this out of the handleUserRecallGuess func due to async issues?
                             // props.seenCardsPile.length === 0 ? props.setGameState(gameStates.endOfGamePhase) : "";
-                        }
-                        }>
-                        Submit guess
-                    </button>
+                        }}>
+                        Submit guess </button>
                     <button className="recall-phase-menu-button" onClick={() => handleSkipCard()}>Skip Card</button>
                 </div>
                 <div className="recall-phase-cards-section">
                     <table className='recall-phase-cards-table'>
-                        <thead></thead>
                         <tbody>
                             <tr>
                                 <th className="recall-phase-icon-square"><GiDiamonds className="recall-phase-cards-icon" /></th>
@@ -266,7 +266,6 @@ export function PlayerActionPanel(props: {
                         </tbody>
                     </table>
                 </div>
-                {/* load lives container from above in here, as a separate component, to show lives remaining */}
             </div>
         </div>
     )

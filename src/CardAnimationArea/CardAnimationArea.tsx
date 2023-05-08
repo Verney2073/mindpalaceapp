@@ -18,7 +18,9 @@ export function CardAnimationArea(props: {
     setCurrentCount: React.Dispatch<React.SetStateAction<number>>,
     playerLives: number,
     setPlayerLives: React.Dispatch<React.SetStateAction<number>>
-    seeCardsTimer: number
+    seeCardsTimer: number,
+    skippedCards: number,
+    playerScore:number,
 
 }) {
     //When I remove string1, string 2 'ourShuffledDeck' below complains. But not with seenCardsPile. Why?
@@ -102,6 +104,8 @@ export function CardAnimationArea(props: {
                     currentCount={props.currentCount}
                     playerLives={props.playerLives}
                     setPlayerLives={props.setPlayerLives}
+                    skippedCards={props.skippedCards}
+                    playerScore ={props.playerScore}
                 />
             </div>
         </div>

@@ -1,5 +1,4 @@
 * {
-  /* border: 1px solid yellow; */
   margin: 5px auto;
   color: white;
   box-sizing: border-box;
@@ -11,86 +10,17 @@
   padding: 2rem;
   text-align: center;
   width: 650px;
+  background-color: #02090e;
 
 }
 
-/* Creating a twinkling effect a' la ChatGPT */
-/* Seem to be invisible with a background size lower than 50px 50px */
-/* explore this more */
 body {
-  /* background-image: radial-gradient(white 1.5%, transparent 0); */
-  /* create light twinkles */
-  /* background-size: 40px 40px; */
-  /* set the size of the twinkles */
-  /* animation: twinkling 10s infinite; */
-  /* set the animation */
-   background-color: #02090e;
-
-} 
-
-/* @keyframes twinkling {
-  from {
-    background-position: 0 0;
-  } */
-
-  /* set the starting position */
-  /* to {
-    background-position: 300px 300px;
-  } */
-
-  /* set the ending position */
-/* } */
+  background-color: #02090e;
+}
 
 ul {
   list-style: none;
   padding: 1%
-}
-.card-face-down-deck-container {
-  width: 26%;
-  height: 78%;
-  top: 7%;
-  left: 10%;
-  position: absolute;
-  display: none;
-}
-
-.game-live-score-panel-container {
-  width: 39%
-}
-
-.game-settings-and-player-action-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 60px;
-}
-
-.game-settings-item {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.game-settings-lives-container {
-  display: flex;
-  flex-direction: space-evenly;
-  margin: 0 4px;
-
-}
-
-.game-settings-option-buttons {
-  display: flex;
-  flex-direction: space-evenly;
-  margin: 0 2px;
-}
-
-.game-settings-option-button {
-  margin: 0px 3px;
-}
-
-.game-settings-option-button:hover {
-  background-color: lightgrey;
-  border-radius: 50%;
 }
 
 .clicked {
@@ -98,32 +28,9 @@ ul {
   border-radius: 50%;
 }
 
-.game-settings-title {
-  margin: 0 2px;
-}
-
-/* .game-settings-panel {
-   display: flex;
-  flex-direction: column; 
-} */
-
-.game-settings-panel-hidden {
-  display: none;
-}
-
 .main-container {
   height: 100%;
 
-}
-
-#number-to-recall {
-  display: flex;
-  justify-content: flex-end;
-  margin: 0 9px;
-}
-
-.player-action-panel-container {
-  width: 59%;
 }
 
 #see-cards-countdown {
@@ -139,12 +46,3 @@ ul {
   opacity: 20%;
   font-size: 2.4rem;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-
-

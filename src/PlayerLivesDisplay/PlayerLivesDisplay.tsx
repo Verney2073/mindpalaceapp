@@ -30,11 +30,8 @@ export function PlayerLivesDisplay(props: {
             console.log("I was clicked. Lives are set to: " + props.playerLives)
         }
     }
-
-
-    if (props.gameState == gameStates.recallPhase)
+    if (props.gameState == gameStates.recallPhase || gameStates.endOfGamePhase)
         return (
-
             <div className="game-settings-lives-container">
                 {/* <div className="game-settings-lives life-one">
                         <AiOutlineHeart

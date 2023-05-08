@@ -1,80 +1,110 @@
 #number-to-recall {
-    color: black;
+  color: black;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 9px;
+}
+
+.game-settings-and-player-action-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 60px;
+}
+
+.game-settings-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.game-settings-lives-container {
+  display: flex;
+  flex-direction: space-evenly;
+  margin: 0 4px;
+
+}
+
+.game-settings-option-buttons {
+  display: flex;
+  flex-direction: space-evenly;
+  margin: 0 2px;
 }
 
 .game-settings-option-button {
-    cursor: pointer;
-    padding: 3px;
+  margin: 0px 3px;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.game-settings-option-button:hover {
+  background-color: lightgrey;
+  border-radius: 50%;
 }
 
 .game-settings-lives {
-    cursor: pointer;
-    display: flex;
-    flex-direction: space-evenly;
-    margin: 0 6px;
-} 
-  /* .game-settings-lives-icon:hover {
-    background-color: pink;
-  } */
+  cursor: pointer;
+  display: flex;
+  flex-direction: space-evenly;
+  margin: 0 6px;
+}
+
+.game-settings-title {
+  margin: 0 2px;
+}
+
+.game-settings-panel-hidden {
+  display: none;
+}
 
 .recall-phase-cards-option {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .selected {
-    background-color: lightgrey;
-    border-radius: 50%;
-    color: #02090e;
+  background-color: lightgrey;
+  border-radius: 50%;
+  color: #02090e;
 }
-
 
 .player-action-panel-container {
-    margin-top: 40px;
+  margin-top: 40px;
+  width: 59%;
 }
 
-/* .active {
-    color: pink;
-    background-color: pink;
-} */
-
-/* .game-settings-lives-icon {
-    color: pink;
-} */
-
 .recall-phase-cards-table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
 
-    border-collapse: collapse;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .recall-phase-icon-square {
-    position: relative;
-    width: 10%;
-    height: 100%;
-  }
-  
-  .recall-phase-cards-icon {
-    position: absolute;
-    top: 0%;
-    left: 22.5%;
-  }
-  
-  .recall-phase-menu-button {
-    color: black;
-  }
-  
-  th,
-  td {
-    border: 1px transparent;
-  }
-  
-  .recall-phase-cards-option:hover {
-    background-color: lightgrey;
-    border-radius: 50%;
-  }
+.recall-phase-icon-square {
+  position: relative;
+  width: 10%;
+  height: 100%;
+}
 
-  .recall-phase-top-menu {
-    display:flex;
-    justify-content: space-evenly;
-  }
+.recall-phase-cards-icon {
+  position: absolute;
+  top: 0%;
+  left: 22.5%;
+}
+
+.recall-phase-menu-button {
+  color: black;
+}
+
+th,
+td {
+  border: 1px transparent;
+}
+
+.recall-phase-cards-option:hover {
+  background-color: lightgrey;
+  border-radius: 50%;
+}
+
+.recall-phase-top-menu {
+  display: flex;
+  justify-content: space-evenly;
+}

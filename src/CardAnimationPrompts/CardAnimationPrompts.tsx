@@ -1,4 +1,5 @@
 import { gameStates } from "../ApiClient/ApiClient";
+import { EndOfGameScoresPanel } from "../EndOfGameScoresPanel/EndOfGameScoresPanel";
 import { PlayerLivesDisplay } from "../PlayerLivesDisplay/PlayerLivesDisplay";
 import "./CardAnimationPrompts.css"
 
@@ -9,6 +10,8 @@ export function CardAnimationPrompts(props: {
     currentCount: number,
     playerLives: number,
     setPlayerLives: React.Dispatch<React.SetStateAction<number>>
+    skippedCards: number,
+    playerScore:number,
 }) {
     if (props.gameState == gameStates.gameNotOn) {
         return (
@@ -21,7 +24,7 @@ export function CardAnimationPrompts(props: {
     if (props.gameState == gameStates.seeCardsPhase) {
         return (
             <div id="card-animation-prompts">
-                <p className="seen-cards">Cards seen: {props.seenCardsPile.length}/{props.cardsToRecall}</p>
+                <p className="seen-cards">Cards: {props.seenCardsPile.length}/{props.cardsToRecall}</p>
                 {props.seenCardsPile.length == props.cardsToRecall && (<p>Last one!</p>
                 )}
             </div>
@@ -31,13 +34,22 @@ export function CardAnimationPrompts(props: {
         return (
             <div id="card-animation-prompts">
                 <p>Cards recalled: {props.cardsToRecall - props.seenCardsPile.length}/{props.cardsToRecall}</p>
-                {/* {props.cardsToRecall == props.seenCardsPile.length && (<p>When you’re ready, recall the first card from the deck and submit below…</p>)} */}
-                <p>Cards skipped: TBD </p>
+                <p>Cards skipped: {props.skippedCards} </p>
                 <PlayerLivesDisplay
                     playerLives={props.playerLives}
                     setPlayerLives={props.setPlayerLives}
                     gameState={props.gameState} />
             </div>
+        )
+    }
+    if (props.gameState == gameStates.endOfGamePhase) {
+        return (
+            <EndOfGameScoresPanel
+            playerScore={props.playerScore}
+            playerLives={props.playerLives}
+            setPlayerLives={props.setPlayerLives}
+            cardsToRecall={props.cardsToRecall}
+            gameState={props.gameState} /> 
         )
     }
 }

@@ -10,6 +10,7 @@ import { CardFlippingTrial } from './CardFlippingTrial/CardFlippingTrial'
 import { AboutPage } from './AboutPage/AboutPage'
 import { Settings } from './SettingsPage/Settings'
 import { gameStates } from './ApiClient/ApiClient'
+import { MindPalaceExplainer } from './MindPalaceExplanerPage/ImproveYourMemory'
 
 function App() {
   //create object or interface for some related states, then use ...*state* to control them 
@@ -22,6 +23,7 @@ function App() {
   const [seenCardsPile, setSeenCardsPile] = useState<string[]>([]);
   const [userRecallCard, setUserRecallCard] = useState("");
   const [playerLives, setPlayerLives] = useState(4);
+  const [skippedCards, setSkippedCards] = useState(0);
   const [playerScore, setPlayerScore] = useState(0);
 
   useEffect(() => {
@@ -37,7 +39,14 @@ function App() {
         document.getElementById("card-center-temp").style.display = "none";
         document.getElementById("card-top-left-temp").style.display = "none";
         document.getElementById("card-bottom-right-temp").style.display = "none"
-        setSeenCardsPile([]); 
+        setSeenCardsPile([]);
+        setSkippedCards(0);
+      }
+      if (currentGameState === gameStates.recallPhase || gameStates.endOfGamePhase) {
+        document.getElementById('card-face-up').className = "playing-card-back";
+        document.getElementById("card-center-temp").style.display = "none";
+        document.getElementById("card-top-left-temp").style.display = "none";
+        document.getElementById("card-bottom-right-temp").style.display = "none"
       }
     }
     handlegameStateChange(gameState);
@@ -55,6 +64,9 @@ function App() {
         <Route path="/settings" element={
           <Settings />
         } />
+        <Route path="/mindpalaceexplainer" element={
+          <MindPalaceExplainer />
+        } />
         <Route path="*" element={
           <div className="main-container">
             <h1> Card Deck Memoriser </h1>
@@ -65,8 +77,10 @@ function App() {
               currentCount={currentCount}
               setCurrentCount={setcurrentCount}
               playerLives={playerLives}
-              setPlayerLives={setPlayerLives} 
-              seeCardsTimer={seeCardsTimer}/>
+              setPlayerLives={setPlayerLives}
+              seeCardsTimer={seeCardsTimer}
+              skippedCards={skippedCards}
+              playerScore={playerScore} />
             <div className='game-settings-and-player-action-container'>
               <GameLiveScorePanel gameState={gameState}
                 setGameState={setGameState}
@@ -90,13 +104,10 @@ function App() {
                 setPlayerLives={setPlayerLives}
                 playerScore={playerScore}
                 setPlayerScore={setPlayerScore}
+                skippedCards={skippedCards}
+                setSkippedCards={setSkippedCards}
               />
             </div>
-            <EndOfGameScoresPanel
-              playerScore={playerScore}
-              playerLives={playerLives}
-              cardsToRecall={cardsToRecall}
-              gameState={gameState} />
           </div>}
         />
       </Routes>

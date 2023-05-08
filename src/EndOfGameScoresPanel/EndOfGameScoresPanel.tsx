@@ -1,20 +1,44 @@
 import { gameStates } from '../ApiClient/ApiClient'
+import { PlayerLivesDisplay } from '../PlayerLivesDisplay/PlayerLivesDisplay'
 import './EndOfGameScoresPanel.css'
 
 export function EndOfGameScoresPanel(props: {
     playerScore: number,
     playerLives: number,
+    setPlayerLives: React.Dispatch<React.SetStateAction<number>>,
     cardsToRecall: number,
     gameState: gameStates
 }) {
-    return (
-        <div>
-            <div className=
-                {props.gameState === "endOfGamePhase" ? "end-of-game-messages-container" : "recall-phase-panel-hidden"}>
-                <p>Congrats!</p>
-                <p>You correctly recalled {props.playerScore} {props.playerScore == 1 ? "card" : "cards"} out of {props.cardsToRecall} to guess </p>
-                <p>You had {props.playerLives} {props.playerLives == 1 ? "life" : "lives"} remaining </p>
+    if (props.playerLives > 0) {
+        return (
+            <div>
+                <div className=
+                    {props.gameState === "endOfGamePhase" ? "end-of-game-messages-container" : "recall-phase-panel-hidden"}>
+                    <PlayerLivesDisplay
+                        gameState={props.gameState}
+                        playerLives={props.playerLives}
+                        setPlayerLives={props.setPlayerLives}
+                    />
+                    <p className="eog-text-item">Congrats!</p>
+                    <p className="eog-text-item">You correctly recalled {props.playerScore} / {props.cardsToRecall} cards </p>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+    if (props.playerLives === 0) {
+        return (
+            <div>
+                <div className=
+                    {props.gameState === "endOfGamePhase" ? "end-of-game-messages-container" : "recall-phase-panel-hidden"}>
+                    <PlayerLivesDisplay
+                        gameState={props.gameState}
+                        playerLives={props.playerLives}
+                        setPlayerLives={props.setPlayerLives}
+                    />
+                    <p className="eog-text-item">You ran out of lives :(</p>
+                    <p className="eog-text-item">You correctly recalled {props.playerScore} / {props.cardsToRecall} cards </p>
+                </div>
+            </div>
+        )
+    }
 }

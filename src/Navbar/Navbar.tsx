@@ -8,7 +8,7 @@ export function Navbar() {
             <ul className="navbar">
                 <Link to={"/"}><li>Home</li></Link>
                 <Link to={"/about"}><li >About</li></Link>
-                <Link to={"/settings"}><li >Settings</li></Link>
+                <Link to={"/mindpalaceexplainer"}><li >Mind Palace</li></Link>
             </ul>
         </div>
     )
