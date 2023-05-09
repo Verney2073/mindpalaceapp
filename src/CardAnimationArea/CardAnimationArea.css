@@ -44,7 +44,7 @@
   left: 42%;
   margin: 0 auto;
   color: red;
-
+  user-select: none;
 }
 
 #card-top-left-temp {
@@ -53,6 +53,7 @@
   left: 5%;
   color: black;
   margin: 0 auto;
+  user-select: none;
 }
 
 #card-bottom-right-temp {
@@ -61,6 +62,7 @@
   right: 5%;
   bottom: 0;
   margin: 0 auto;
+  user-select: none;
 }
 
 #card-face-up-toggle-temp {
@@ -86,8 +88,7 @@
   width: 126px;
   /* option 1: background-image: url("inkblotsplotches.png"); */
   /* option 2: background-color: #f5f5f5;
-     repeating-linear-gradient(to bottom, transparent, transparent 5px, #e5e5e5 5px, lightblue 10px);
-  */
+     repeating-linear-gradient(to bottom, transparent, transparent 5px, #e5e5e5 5px, lightblue 10px); */
   /* option 3 */
   background-color: #fff;
   background-image: repeating-linear-gradient(-45deg, #ddd, #ddd 5px, #bbb 5px, #4BB1E1 10px);

@@ -28,7 +28,10 @@ export function RecallPhasePanel(props: {
         props.seenCardsPile.shift();
         console.log("You have skipped this card");
         props.setSkippedCards(props.skippedCards + 1)
-        props.seenCardsPile.length === 0 ? props.setGameState(gameStates.endOfGamePhase) : "";
+        if (props.seenCardsPile.length === 0) {
+            setGuess("");
+            props.setGameState(gameStates.endOfGamePhase)
+        }
     }
 
     function handleUserRecallGuess(userRecallCard: string) {
@@ -64,8 +67,6 @@ export function RecallPhasePanel(props: {
                 <button className="recall-phase-menu-button"
                     onClick={function () {
                         handleUserRecallGuess(props.userRecallCard);
-                        //did I move this out of the handleUserRecallGuess func due to async issues?
-                        // props.seenCardsPile.length === 0 ? props.setGameState(gameStates.endOfGamePhase) : "";
                     }}>
                     Submit guess </button>
                 <button className="recall-phase-menu-button" onClick={() => handleSkipCard()}>Skip Card</button>

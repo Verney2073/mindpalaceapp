@@ -26,6 +26,7 @@ export function CardAnimationPrompts(props: {
         return (
             <div id="card-animation-prompts">
                 <p className="seen-cards">Cards: {props.seenCardsPile.length}/{props.cardsToRecall}</p>
+                {props.seenCardsPile.length === 1 && (<p>Hold the card in your mind's eye...</p>)}
                 {props.seenCardsPile.length == props.cardsToRecall && (<p>Last card...</p>)}
                 {props.seenCardsPile.length == 0 && props.seeCardsTimer !== -1 && (<p>Get ready...</p>)}
                 {props.seenCardsPile.length == 0 && props.seeCardsTimer === -1 && (<p>Focus your mind, then click again to begin... </p>)}

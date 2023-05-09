@@ -11,7 +11,6 @@ import { gameStates } from './ApiClient/ApiClient'
 import { MindPalaceExplainer } from './MindPalaceExplanerPage/ImproveYourMemory'
 
 function App() {
-
   const [gameState, setGameState] = useState(gameStates.gameNotOn);
   const [seeCardsTimer, setSeeCardsTimer] = useState(-1);
   const [cardsToRecall, setCardsToRecall] = useState(5);

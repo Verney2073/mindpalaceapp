@@ -62,9 +62,16 @@ export function PlayerActionPanel(props: {
                     <label className="game-settings-title">Cards to recall:</label>
                     <input type="number" id="number-to-recall"
                         name="number-to-recall" min="1" max="52"
-                        //how do I fix this?
-                        value={props.cardsToRecall}
-                        onChange={e => props.setCardsToRecall(parseInt(e.target.value))}
+                        value={props.cardsToRecall > 0 ? props.cardsToRecall : ""}
+                        onChange={e =>  {
+                            if (parseInt(e.target.value) <= 52) {
+                                props.setCardsToRecall(parseInt(e.target.value))
+                            } else if (e.target.value === "") {
+                                props.setCardsToRecall(0);
+                            } else {
+                                alert("The maximum number of cards that can be shown is 52")
+                            }
+                        }}
                     ></input> </li><br></br>
                 <li className='game-settings-item'>
                     <label className="game-settings-title">Lives: </label>
