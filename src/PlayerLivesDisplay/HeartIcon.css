@@ -46,7 +46,6 @@
     border-radius: 10px 10px 0 0;
 }
 
-
 .heart.inactive-life::before {
     background: hsl(0, 0%, 70%);
     transition: .25s ease-in-out;
@@ -56,4 +55,3 @@
     background: hsl(0, 0%, 70%);
     transition: .25s ease-in-out;
 }
-

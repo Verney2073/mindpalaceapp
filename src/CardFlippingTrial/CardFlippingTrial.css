@@ -6,7 +6,6 @@
   cursor: pointer;
 }
 
-
 .card-face {
   position: absolute;
   width: 100%;
@@ -18,7 +17,7 @@
 }
 
 .card-bottom-right {
-  position: absolute; 
+  position: absolute;
   bottom: 1%;
   right: 5%;
   margin: 10px;
@@ -27,7 +26,7 @@
 
 .card-center {
   position: absolute;
-  top:38.5%;
+  top: 38.5%;
   left: 37%;
   color: red;
 }
@@ -56,4 +55,3 @@
 .card.flipped .card-back {
   transform: rotateY(0) translateX(0);
 }
-

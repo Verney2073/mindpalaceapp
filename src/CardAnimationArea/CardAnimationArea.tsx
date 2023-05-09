@@ -3,7 +3,6 @@ import { useState } from 'react';
 import '../App.css'
 import './CardAnimationArea.css'
 import { createDeck, flipCard,  shuffleDeck } from '../CardCreationInteractions/CardCreationsInteractions'
-import { GiCardDraw } from 'react-icons/gi';
 import { gameStates } from '../ApiClient/ApiClient';
 import { CardAnimationPrompts } from '../CardAnimationPrompts/CardAnimationPrompts';
 

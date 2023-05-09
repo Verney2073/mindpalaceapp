@@ -1,7 +1,7 @@
 import { GiClubs, GiDiamonds, GiHearts, GiSpades } from "react-icons/gi";
 import { gameStates } from "../ApiClient/ApiClient";
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
+import { RecallPhaseGuessPrompts } from "../RecallPhaseGuessPrompts/RecallPhaseGuessPrompts";
 
 export function RecallPhasePanel(props: {
     gameState: gameStates,
@@ -22,6 +22,7 @@ export function RecallPhasePanel(props: {
     setSkippedCards: React.Dispatch<React.SetStateAction<number>>
 }) {
     const [selectedOption, setSelectedOption] = useState("");
+    const [guess, setGuess] = useState("");
 
     function handleSkipCard() {
         props.seenCardsPile.shift();
@@ -33,33 +34,36 @@ export function RecallPhasePanel(props: {
     function handleUserRecallGuess(userRecallCard: string) {
         if (props.gameState === gameStates.recallPhase) {
             if (userRecallCard === props.seenCardsPile[0]) {
-                //we shouldn't really just pop out the seenCards - because we'll need them to save games later
-                alert("Correct!")
+                setGuess("correct")
                 props.seenCardsPile.shift()
-                //run a phase check - if no cards left to guess, move to end-of-game;
                 props.setPlayerScore(props.playerScore + 1)
                 console.log("Your score is: " + props.playerScore)
 
             } else if (userRecallCard === "") {
                 alert("Select the card you want to guess from the grid below the playing area")
             } else if (props.playerLives == 1) {
-                alert("You're out of lives!")
+                setGuess("");
                 props.setPlayerLives(0);
                 props.setGameState(gameStates.endOfGamePhase);
+                alert("You're out of lives!");
             } else {
-                alert("Oops! Wrong guess")
+                setGuess("incorrect")
                 props.setPlayerLives(props.playerLives - 1)
             }
         }
-        props.seenCardsPile.length === 0 ? props.setGameState(gameStates.endOfGamePhase) : "";
+        if (props.seenCardsPile.length === 0) {
+            setGuess("");
+            props.setGameState(gameStates.endOfGamePhase)
+        }
     }
     return (
         <div>
+            <RecallPhaseGuessPrompts
+                guess={guess} />
             <div className="recall-phase-top-menu">
                 <button className="recall-phase-menu-button"
                     onClick={function () {
                         handleUserRecallGuess(props.userRecallCard);
-                        console.log("length of seenCardsPile is equal to:" + props.seenCardsPile.length);
                         //did I move this out of the handleUserRecallGuess func due to async issues?
                         // props.seenCardsPile.length === 0 ? props.setGameState(gameStates.endOfGamePhase) : "";
                     }}>
@@ -127,7 +131,6 @@ export function RecallPhasePanel(props: {
                                 }`} onClick={function () { props.setUserRecallCard("QC"), setSelectedOption("QC") }}>Q</th>
                             <th className={`recall-phase-cards-option ${selectedOption === "KC" ? "selected" : ""
                                 }`} onClick={function () { props.setUserRecallCard("KC"), setSelectedOption("KC") }}>K</th>
-
                         </tr>
                         <tr>
                             <th className="recall-phase-icon-square"><GiHearts
@@ -158,7 +161,6 @@ export function RecallPhasePanel(props: {
                                 }`} onClick={function () { props.setUserRecallCard("QH"), setSelectedOption("QH") }}>Q</th>
                             <th className={`recall-phase-cards-option ${selectedOption === "KH" ? "selected" : ""
                                 }`} onClick={function () { props.setUserRecallCard("KH"), setSelectedOption("KH") }}>K</th>
-
                         </tr>
                         <tr>
                             <th className="recall-phase-icon-square"><GiSpades

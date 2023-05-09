@@ -27,3 +27,13 @@ ul {
   height: 100%;
 }
 
+.game-settings-and-player-action-container{
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.primary-color {
+  color:  #4BB1E1 
+}

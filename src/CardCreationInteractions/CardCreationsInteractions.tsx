@@ -1,8 +1,4 @@
-import React from 'react'
 import '../App.js'
-
-//find a Card Deck Library to use instead
-//https://www.npmjs.com/package/react-free-playing-cards
 
 const icons = [
     {

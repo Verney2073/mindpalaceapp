@@ -1,11 +1,7 @@
-import { useState, useEffect } from 'react'
+import {  useEffect } from 'react'
 import '../App.css'
 import './GameLiveScorePanel.css'
-import { flipCard } from '../CardCreationInteractions/CardCreationsInteractions';
-//why can't I use gameStates now as the type of GameState
 import { gameStates } from '../ApiClient/ApiClient';
-
-//Make the clarity of the buttons better - what they do and how they respond to stuff 
 
 export function GameLiveScorePanel(props: {
     gameState: string,
@@ -19,9 +15,7 @@ export function GameLiveScorePanel(props: {
     seenCardsPile: string[],
 }): JSX.Element {
 
-
     useEffect(() => {
-
         if (props.gameState === gameStates.seeCardsPhase && props.currentCount >= 0 && props.seeCardsTimer >= 0) {
             const intervalId = setInterval(
                 () => {
@@ -33,7 +27,6 @@ export function GameLiveScorePanel(props: {
 
             return () => clearInterval(intervalId);
         }
-
     }, [props.gameState, props.currentCount, props.cardsToRecall, props.seeCardsTimer]);
 
     return (
@@ -42,7 +35,8 @@ export function GameLiveScorePanel(props: {
                 <span id={props.seeCardsTimer === -1 ? "see-card-countdown-hidden" : "see-cards-countdown"}
                 > {props.currentCount} </span>
             </div>
-            <button id="reset-button" onClick={() => props.setGameState(gameStates.gameNotOn)}>Restart Game</button>
+            <button id="reset-button" 
+            className={`${props.gameState !== gameStates.recallPhase ? "non-recall" : "recall"}`} onClick={() => props.setGameState(gameStates.gameNotOn)}>Restart Game</button>
         </div>
     )
 }

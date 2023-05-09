@@ -25,7 +25,7 @@ export function EndOfGameScoresPanel(props: {
             </div>
         )
     }
-    if (props.playerLives === 0) {
+    else if (props.playerLives === 0) {
         return (
             <div>
                 <div className=
@@ -40,5 +40,7 @@ export function EndOfGameScoresPanel(props: {
                 </div>
             </div>
         )
+    } else {
+        return <></>
     }
 }

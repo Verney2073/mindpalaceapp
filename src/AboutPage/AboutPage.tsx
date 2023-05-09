@@ -1,7 +1,6 @@
 import {  Link } from 'react-router-dom';
 import './AboutPage.css'
 
-
 export function AboutPage() {
     return (
         <div>
@@ -15,8 +14,6 @@ export function AboutPage() {
                     However, the real benefit of memorising cards doesn't come from  undirected practice, but from deliberate practie of known memory techniques. 
                 </p><br></br>
                 <p>One such technique is the <Link to={"/mindpalaceexplainer"} className ="mind-palace-link">Mind Palace</Link>, which has been practised for thousands of years.</p>
-
-
             </section>
         </div>
     )

@@ -1,0 +1,9 @@
+.user-guess-prompt {
+    font-size: 1.5em;
+    transition: .25s ease-in-out;
+    height: 100%;
+}
+
+.user-guess-prompt-container {
+    height: 50px;
+}

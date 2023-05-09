@@ -5,7 +5,6 @@ export function CardFlippingTrial(props: {
   cardSuit : string;
   cardRank : string; 
 }) {
-  //from card flip component
   const [flipped, setFlipped] = useState(false);
 
   const handleCardClick = () => {

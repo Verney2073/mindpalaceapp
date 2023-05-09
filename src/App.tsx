@@ -5,16 +5,12 @@ import { Navbar } from './Navbar/Navbar'
 import { CardAnimationArea } from './CardAnimationArea/CardAnimationArea'
 import { GameLiveScorePanel } from './GameLiveScorePanel/GameLiveScorePanel'
 import { PlayerActionPanel } from './PlayerActionPanel/PlayerActionPanel'
-import { EndOfGameScoresPanel } from './EndOfGameScoresPanel/EndOfGameScoresPanel'
-import { CardFlippingTrial } from './CardFlippingTrial/CardFlippingTrial'
 import { AboutPage } from './AboutPage/AboutPage'
 import { Settings } from './SettingsPage/Settings'
 import { gameStates } from './ApiClient/ApiClient'
 import { MindPalaceExplainer } from './MindPalaceExplanerPage/ImproveYourMemory'
 
 function App() {
-  //create object or interface for some related states, then use ...*state* to control them 
-  //Fore example in the Mars Mission sidebar
 
   const [gameState, setGameState] = useState(gameStates.gameNotOn);
   const [seeCardsTimer, setSeeCardsTimer] = useState(-1);
@@ -27,8 +23,6 @@ function App() {
   const [playerScore, setPlayerScore] = useState(0);
 
   useEffect(() => {
-    //this seems to always believe gameState is set to gameNotOn and therefore always runs
-    //e.g. it runs at the beginning of the recall phase, setting the SeenCardsPile back to [] 
     function handlegameStateChange(currentGameState: gameStates) {
       if (currentGameState === gameStates.gameNotOn) {
         setSeeCardsTimer(seeCardsTimer);
@@ -69,7 +63,7 @@ function App() {
         } />
         <Route path="*" element={
           <div className="main-container">
-            <h1> Card Deck Memoriser </h1>
+            <h1> Deck <span className="primary-color">Memoriser</span> </h1>
             <CardAnimationArea gameState={gameState}
               setGameState={setGameState}
               cardsToRecall={cardsToRecall} setCardsToRecall={setCardsToRecall}

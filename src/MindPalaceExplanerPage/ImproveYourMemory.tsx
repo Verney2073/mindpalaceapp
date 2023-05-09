@@ -1,6 +1,5 @@
 import './ImproveYourMemory.css'
 
-
 export function MindPalaceExplainer() {
     return (
         <div>
@@ -10,7 +9,7 @@ export function MindPalaceExplainer() {
                     It allows you to learn impossible memory feats quickly by harnessing the brain's preference for visual and spatial memory.</p>
                 <p className="text-item">Ron White, a former USA memory champion, describes how he used the technique as follows: </p>
                 <ol className="text-item">
-                    <li className="text-item">Visualise walking through 5 rooms in your house.</li>
+                    <li className="text-item">Visualise walking through 5 of the rooms in your house.</li>
                     <li className="text-item">In each room, visualise 10 items. It could be furniture, utensils, personal items, hanging pictures, or anything else in the room. Picture items as larger than life-size so they're easier to memorise.</li>
                     <li className="text-item">In your final room add two more items, for a total of 52 items in your house, the same as a deck of cards.</li>
                     <li className="text-item">Establish an order of viewing the items as you walk through the house. For example you may start at the front door with the coat rack (item 1) and the shoe rack (item 2), and proceed through the corridor (items 3-10) into room 2, and so on</li>

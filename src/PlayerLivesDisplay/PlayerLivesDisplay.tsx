@@ -1,4 +1,3 @@
-import { AiOutlineHeart } from "react-icons/ai";
 import { gameStates } from "../ApiClient/ApiClient";
 import "./PlayerLivesDisplay.css"
 import { HeartIcon } from "./HeartIcon";
@@ -14,7 +13,6 @@ export function PlayerLivesDisplay(props: {
             console.log("I was clicked. Lives are set to: " + props.playerLives)
         }
     }
-    
     if (props.gameState == gameStates.recallPhase || gameStates.endOfGamePhase) 
         return (
             <div className="game-settings-lives-container">

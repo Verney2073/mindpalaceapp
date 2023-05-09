@@ -1,12 +1,7 @@
 import '../App.css'
 import './PlayerActionPanel.css'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { TbHeart } from 'react-icons/Tb'
-import { GiSpades, GiDiamonds, GiHearts, GiClubs } from 'react-icons/gi'
 import { useEffect, useState } from 'react';
 import { gameStates } from '../ApiClient/ApiClient';
-import { IconContext } from 'react-icons';
-import { HeartIcon } from '../PlayerLivesDisplay/HeartIcon';
 import { PlayerLivesDisplay } from '../PlayerLivesDisplay/PlayerLivesDisplay';
 import { RecallPhasePanel } from './RecallPhasePanel';
 
@@ -28,9 +23,7 @@ export function PlayerActionPanel(props: {
     skippedCards: number,
     setSkippedCards: React.Dispatch<React.SetStateAction<number>>
 }) {
-    const [selectedOption, setSelectedOption] = useState("");
     const [selectedSeeNextCard, setSelectedSeeNextCard] = useState("On Click");
-
 
     function updateTimer(newTime: number) {
         props.setSeeCardsTimer(newTime);
@@ -42,7 +35,7 @@ export function PlayerActionPanel(props: {
     }, [props.seenCardsPile])
 
     return (
-        <div className="player-action-panel-container">
+        <div className={`player-action-panel-container ${props.gameState != gameStates.recallPhase ? "margin-boost" : "margin-regular"}`}>
             <ul className=
                 {props.gameState === gameStates.recallPhase ? "game-settings-panel-hidden" : "game-settings-panel"}>
                 <li className='game-settings-item'>
