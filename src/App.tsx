@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, createContext } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Navbar } from './Navbar/Navbar'
@@ -7,8 +7,11 @@ import { GameLiveScorePanel } from './GameLiveScorePanel/GameLiveScorePanel'
 import { PlayerActionPanel } from './PlayerActionPanel/PlayerActionPanel'
 import { AboutPage } from './AboutPage/AboutPage'
 import { Settings } from './SettingsPage/Settings'
-import { gameStates } from './ApiClient/ApiClient'
+import { IDefaultData, defaultData, gameStates } from './ApiClient/ApiClient'
 import { MindPalaceExplainer } from './MindPalaceExplanerPage/ImproveYourMemory'
+import { displayCardFaceDown } from './CardCreationInteractions/CardCreationsInteractions'
+
+export const appContext = createContext<IDefaultData>(defaultData)
 
 function App() {
   const [gameState, setGameState] = useState(gameStates.gameNotOn);
@@ -28,24 +31,37 @@ function App() {
         setcurrentCount(seeCardsTimer === -1 ? 3 : seeCardsTimer);
         setCardsToRecall(cardsToRecall);
         setUserRecallCard("");
-        document.getElementById('card-face-up').className = "playing-card-back";
-        document.getElementById("card-center-temp").style.display = "none";
-        document.getElementById("card-top-left-temp").style.display = "none";
-        document.getElementById("card-bottom-right-temp").style.display = "none"
+        displayCardFaceDown();
         setSeenCardsPile([]);
         setSkippedCards(0);
       }
       if (currentGameState === gameStates.recallPhase || gameStates.endOfGamePhase) {
-        document.getElementById('card-face-up').className = "playing-card-back";
-        document.getElementById("card-center-temp").style.display = "none";
-        document.getElementById("card-top-left-temp").style.display = "none";
-        document.getElementById("card-bottom-right-temp").style.display = "none"
+        displayCardFaceDown();
       }
     }
     handlegameStateChange(gameState);
-    console.log("gamestate is " + gameState)
-    console.log("seenCardsPile is " + seenCardsPile)
   }, [gameState])
+
+  const contextValues = {
+    gameState,
+    seeCardsTimer,
+    cardsToRecall,
+    currentCount,
+    seenCardsPile,
+    userRecallCard,
+    playerLives,
+    skippedCards,
+    playerScore,
+    setGameState,
+    setCardsToRecall,
+    setSeenCardsPile,
+    setCurrentCount: setcurrentCount,
+    setPlayerLives,
+    setPlayerScore,
+    setSkippedCards,
+    setSeeCardsTimer,
+    setUserRecallCard
+  };
 
   return (
     <Router>
@@ -63,44 +79,13 @@ function App() {
         <Route path="*" element={
           <div className="main-container">
             <h1> Deck <span className="primary-color">Memoriser</span> </h1>
-            <CardAnimationArea gameState={gameState}
-              setGameState={setGameState}
-              cardsToRecall={cardsToRecall} setCardsToRecall={setCardsToRecall}
-              seenCardsPile={seenCardsPile} setSeenCardsPile={setSeenCardsPile}
-              currentCount={currentCount}
-              setCurrentCount={setcurrentCount}
-              playerLives={playerLives}
-              setPlayerLives={setPlayerLives}
-              seeCardsTimer={seeCardsTimer}
-              skippedCards={skippedCards}
-              playerScore={playerScore} />
-            <div className='game-settings-and-player-action-container'>
-              <GameLiveScorePanel gameState={gameState}
-                setGameState={setGameState}
-                seeCardsTimer={seeCardsTimer}
-                setSeeCardsTimer={setSeeCardsTimer}
-                currentCount={currentCount}
-                setCurrentCount={setcurrentCount}
-                seenCardsPile={seenCardsPile}
-                cardsToRecall={cardsToRecall}
-                setCardsToRecall={setCardsToRecall}
-              />
-              <PlayerActionPanel gameState={gameState}
-                seeCardsTimer={seeCardsTimer} setSeeCardsTimer={setSeeCardsTimer}
-                cardsToRecall={cardsToRecall} setCardsToRecall={setCardsToRecall}
-                userRecallCard={userRecallCard}
-                setUserRecallCard={setUserRecallCard}
-                seenCardsPile={seenCardsPile}
-                setGameState={setGameState}
-                setcurrentCount={setcurrentCount}
-                playerLives={playerLives}
-                setPlayerLives={setPlayerLives}
-                playerScore={playerScore}
-                setPlayerScore={setPlayerScore}
-                skippedCards={skippedCards}
-                setSkippedCards={setSkippedCards}
-              />
-            </div>
+            <appContext.Provider value={contextValues}>
+              <CardAnimationArea />
+              <div className='game-settings-and-player-action-container'>
+                <GameLiveScorePanel />
+                <PlayerActionPanel />
+              </div>
+            </appContext.Provider>
           </div>}
         />
       </Routes>

@@ -46,7 +46,7 @@ export function shuffleDeck(deck: string[]) {
 
 export function flipCard(deck: string[], seenCards: string[], cardsToRecall: number = 5) {
     if (seenCards.length === cardsToRecall) return console.log("All cards seen!");
-    console.log("The card is: " + deck[0])
+    // console.log("The card is: " + deck[0])
     let cardSuit = icons.find(obj => obj.suit === deck[0][deck[0].length - 1]);
     let suitIcon = cardSuit?.icon;
     let iconColor = cardSuit?.color;
@@ -54,8 +54,15 @@ export function flipCard(deck: string[], seenCards: string[], cardsToRecall: num
     let cardRank = cardRanks.splice(0, cardRanks.length - 1).join(""); //e.g. deck =['10H'] captures '10' here
     seenCards.push(deck[0])
     deck.shift();
-    console.log("You have seen the following cards: " + seenCards);
-    console.log("seen careds pile is equal to:" + seenCards)
+    // console.log("You have seen the following cards: " + seenCards);
+    // console.log("seen cards pile is equal to:" + seenCards)
     const ourCard = { suitIcon, cardRank, iconColor }
     return ourCard;
+}
+
+export function displayCardFaceDown() {
+    document.getElementById('card-face-up').className = "playing-card-back";
+    document.getElementById("card-center-temp").style.display = "none";
+    document.getElementById("card-top-left-temp").style.display = "none";
+    document.getElementById("card-bottom-right-temp").style.display = "none"
 }

@@ -4,7 +4,9 @@ import './RecallPhaseGuessPrompts.css'
 export function RecallPhaseGuessPrompts(props: {
     guess: string
 }) {
-    switch (props.guess) {
+    const guess = props.guess;
+
+    switch (guess) {
         case "correct":
             return (
                 <div className="user-guess-prompt-container">

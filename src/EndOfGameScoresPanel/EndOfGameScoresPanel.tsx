@@ -1,42 +1,35 @@
 import { gameStates } from '../ApiClient/ApiClient'
+import { appContext } from '../App'
 import { PlayerLivesDisplay } from '../PlayerLivesDisplay/PlayerLivesDisplay'
 import './EndOfGameScoresPanel.css'
+import { useContext } from 'react'
 
-export function EndOfGameScoresPanel(props: {
-    playerScore: number,
-    playerLives: number,
-    setPlayerLives: React.Dispatch<React.SetStateAction<number>>,
-    cardsToRecall: number,
-    gameState: gameStates
-}) {
-    if (props.playerLives > 0) {
+export function EndOfGameScoresPanel() {
+
+    const compContext = useContext(appContext)
+
+    if (compContext.playerLives > 0) {
         return (
             <div>
                 <div className=
-                    {props.gameState === "endOfGamePhase" ? "end-of-game-messages-container" : "recall-phase-panel-hidden"}>
+                    {compContext.gameState === "endOfGamePhase" ? "end-of-game-messages-container" : "recall-phase-panel-hidden"}>
                     <PlayerLivesDisplay
-                        gameState={props.gameState}
-                        playerLives={props.playerLives}
-                        setPlayerLives={props.setPlayerLives}
                     />
                     <p className="eog-text-item">Congrats!</p>
-                    <p className="eog-text-item">You correctly recalled {props.playerScore} / {props.cardsToRecall} cards </p>
+                    <p className="eog-text-item">You correctly recalled {compContext.playerScore} / {compContext.cardsToRecall} cards </p>
                 </div>
             </div>
         )
     }
-    else if (props.playerLives === 0) {
+    else if (compContext.playerLives === 0) {
         return (
             <div>
                 <div className=
-                    {props.gameState === "endOfGamePhase" ? "end-of-game-messages-container" : "recall-phase-panel-hidden"}>
+                    {compContext.gameState === "endOfGamePhase" ? "end-of-game-messages-container" : "recall-phase-panel-hidden"}>
                     <PlayerLivesDisplay
-                        gameState={props.gameState}
-                        playerLives={props.playerLives}
-                        setPlayerLives={props.setPlayerLives}
                     />
                     <p className="eog-text-item">You ran out of lives :(</p>
-                    <p className="eog-text-item">You correctly recalled {props.playerScore} / {props.cardsToRecall} cards </p>
+                    <p className="eog-text-item">You correctly recalled {compContext.playerScore} / {compContext.cardsToRecall} cards </p>
                 </div>
             </div>
         )

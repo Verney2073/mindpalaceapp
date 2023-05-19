@@ -1,36 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import '../App.css'
 import './CardAnimationArea.css'
 import { createDeck, flipCard, shuffleDeck } from '../CardCreationInteractions/CardCreationsInteractions'
 import { gameStates } from '../ApiClient/ApiClient';
 import { CardAnimationPrompts } from '../CardAnimationPrompts/CardAnimationPrompts';
+import { appContext } from '../App';
 
-export function CardAnimationArea(props: {
-    gameState: gameStates,
-    setGameState: React.Dispatch<React.SetStateAction<gameStates>>
-    cardsToRecall: number;
-    setCardsToRecall: React.Dispatch<React.SetStateAction<number>>
-    seenCardsPile: string[];
-    setSeenCardsPile: React.Dispatch<React.SetStateAction<string[]>>
-    currentCount: number,
-    setCurrentCount: React.Dispatch<React.SetStateAction<number>>,
-    playerLives: number,
-    setPlayerLives: React.Dispatch<React.SetStateAction<number>>
-    seeCardsTimer: number,
-    skippedCards: number,
-    playerScore: number,
-
-}) {
+export function CardAnimationArea() {
     //When I remove string1, string 2 'ourShuffledDeck' below complains. But not with seenCardsPile. Why?
     let [activeDeck, setActiveDeck] = useState(['string1', 'string2']);
     let [cardsFlipped, setCardsFlipped] = useState(false)
     let [ourCurrentCardSuit, setourCurrentCardSuit] = useState("");
     let [ourCurrentCardRank, setourCurrentCardRank] = useState("");
 
+    const {
+        gameState,
+        setGameState,
+        seeCardsTimer,
+        cardsToRecall,
+        seenCardsPile,
+        currentCount,
+    } = useContext(appContext);
+
     async function displayCardFace(ourCard) {
         document.getElementById('card-face-up').className = "playing-card-front";
-        // document.getElementById("card-face-up").innerHTML = ourCard.suitIcon + ourCard.cardRank; //add cardRank as well
         setCardsFlipped(true);
         setourCurrentCardRank(ourCard.cardRank);
         setourCurrentCardSuit(ourCard.suitIcon);
@@ -55,19 +49,15 @@ export function CardAnimationArea(props: {
     }
 
     async function handleMainDeckClick() {
-        if (props.cardsToRecall > 0) {
-            if (props.gameState === gameStates.gameNotOn) {
-                props.setGameState(gameStates.seeCardsPhase)
-                console.log("the game has started!");
+        if (cardsToRecall > 0) {
+            if (gameState === gameStates.gameNotOn) {
+                setGameState(gameStates.seeCardsPhase)
                 let ourShuffledDeck = shuffleDeck(createDeck());
                 setActiveDeck(ourShuffledDeck);
-                //prompt the user to click again if they are in the 'onclick' mode 
             }
-            if (props.gameState === gameStates.seeCardsPhase && props.seeCardsTimer == -1) {
-                if (props.cardsToRecall === props.seenCardsPile.length) props.setGameState(gameStates.recallPhase);
-
-                let ourCard = flipCard(activeDeck, props.seenCardsPile, props.cardsToRecall);
-                // show the visuals of the card
+            if (gameState === gameStates.seeCardsPhase && seeCardsTimer == -1) {
+                if (cardsToRecall === seenCardsPile.length) setGameState(gameStates.recallPhase);
+                let ourCard = flipCard(activeDeck, seenCardsPile, cardsToRecall);
                 displayCardFace(ourCard);
             }
         } else {
@@ -76,20 +66,20 @@ export function CardAnimationArea(props: {
     }
 
     useEffect(() => {
-        if (props.currentCount === 0) {
-            if (props.cardsToRecall === props.seenCardsPile.length) {
-                props.setGameState(gameStates.recallPhase)
+        if (currentCount === 0) {
+            if (cardsToRecall === seenCardsPile.length) {
+                setGameState(gameStates.recallPhase)
             }
-            let ourCard = flipCard(activeDeck, props.seenCardsPile, props.cardsToRecall);
+            let ourCard = flipCard(activeDeck, seenCardsPile, cardsToRecall);
             displayCardFace(ourCard); //add cardRank as well
 
         }
-    }, [props.currentCount]);
+    }, [currentCount]);
 
     return (
         <div className="card-animation-container">
             <div className=
-                {`card-face-up-container ${(props.gameState == gameStates.gameNotOn || (props.gameState == gameStates.seeCardsPhase && props.seeCardsTimer === -1))
+                {`card-face-up-container ${(gameState == gameStates.gameNotOn || (gameState == gameStates.seeCardsPhase && seeCardsTimer === -1))
                     ? "playing-card-clickable"
                     : ""}`}>
                 <div className="playing-card-back"
@@ -105,21 +95,11 @@ export function CardAnimationArea(props: {
             </div>
             {/* Temporarily hiding face-down-deck-container as I am using only a single deck to display cards rn */}
             <div className="card-face-down-deck-container" >
-                <div className={`playing-card-back ${props.gameState == gameStates.gameNotOn ? "playing-card-clickable" : ""}`} >
+                <div className={`playing-card-back ${gameState == gameStates.gameNotOn ? "playing-card-clickable" : ""}`} >
                 </div>
             </div>
             <div className="card-animation-prompt-container">
-                <CardAnimationPrompts
-                    gameState={props.gameState}
-                    cardsToRecall={props.cardsToRecall}
-                    seenCardsPile={props.seenCardsPile}
-                    currentCount={props.currentCount}
-                    playerLives={props.playerLives}
-                    setPlayerLives={props.setPlayerLives}
-                    skippedCards={props.skippedCards}
-                    playerScore={props.playerScore}
-                    seeCardsTimer={props.seeCardsTimer}
-                />
+                <CardAnimationPrompts />
             </div>
         </div>
     )
