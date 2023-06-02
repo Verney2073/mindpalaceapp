@@ -16,7 +16,7 @@ export function PlayerLivesDisplay() {
       setPlayerLives(lifeClicked);
   }
 
-  if (gameState === gameStates.recallPhase || gameState === gameStates.endOfGamePhase) {
+  if (gameState !== gameStates.seeCardsPhase ) {
     return (
       <div className="game-settings-lives-container">
         <div
